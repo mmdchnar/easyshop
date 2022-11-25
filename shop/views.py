@@ -21,12 +21,6 @@ def index(request):
                 # response.delete_cookie('name')
                 return response
 
-        if 'url' in dict(request.POST.items()):
-            html = get(request.POST['url']).text
-            return HttpResponse(html)
-
-       
-
     return render(request, 'index.html')
 
 
