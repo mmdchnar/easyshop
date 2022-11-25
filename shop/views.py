@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponseRedirect #, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
+
+from requests import get
 
 
 
@@ -18,6 +20,11 @@ def index(request):
                 response.set_cookie('name', request.POST['name'])
                 # response.delete_cookie('name')
                 return response
+
+        if 'url' in dict(request.POST.items()):
+            html = get(request.POST['url']).text
+            return HttpResponse(html)
+
        
 
     return render(request, 'index.html')
