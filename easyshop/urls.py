@@ -23,11 +23,11 @@ from django.conf.urls import handler404, handler500
 
 
 
-handler404 = 'myapp.views._404'
-handler500 = 'myapp.views._404'
+handler404 = 'shop.views._404'
+handler500 = 'shop.views._404'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('myapp.urls')),
+    path('', include('shop.urls')),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
