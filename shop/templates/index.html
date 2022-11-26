@@ -162,43 +162,22 @@
          <div class="row">
             <div class="col-md-12">
                <div class="one-slider">
-                  <h4>دوربین عکاسی</h4>
+                  <h4>لپتاپ</h4>
                   <div class="owl-carousel owl-theme ov1">
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>canon-ef-50mm</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>canon 55mmSTM</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>canon S-500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Canon_EOS_400D</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>canon d10</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
+                     {% for product in products %}
+                     {% if product.category.name == 'Laptop' %}
+                     <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
+                        <div class="item">
+                           <figure>
+                              <img src="/assets/img/{{ product.category.link }}{{ product.image.link }}"
+                              class="w-100"  alt="{{ product.image.name }}"/>
+                           </figure>
+                           <h5 style="color: #000;">{{ product.name }}</h5>
+                           <span>{{ product.price|floatformat:"-3g" }} تومان</span>
+                        </div>
+                     </a>
+                     {% endif %}
+                     {% endfor %}
                   </div>
                </div>
             </div>
@@ -220,57 +199,22 @@
          <div class="row">
             <div class="col-md-12">
                <div class="two-slider">
-                  <h4>موبایل و تبلت</h4>
+                  <h4>موبایل</h4>
                   <div class="owl-carousel owl-theme ov2">
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/p20lite-listimage-black.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/p20lite-listimage-black.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/p20lite-listimage-black.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/p20lite-listimage-black.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/p20lite-listimage-black.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/p20lite-listimage-black.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/p20lite-listimage-black.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
+                     {% for product in products %}
+                     {% if product.category.name == 'Mobile' %}
+                     <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
+                        <div class="item">
+                           <figure>
+                              <img src="/assets/img/{{ product.category.link }}{{ product.image.link }}"
+                              class="w-100"  alt="{{ product.image.name }}"/>
+                           </figure>
+                           <h5 style="color: #000;">{{ product.name }}</h5>
+                           <span>{{ product.price|floatformat:"-3g" }} تومان</span>
+                        </div>
+                     </a>
+                     {% endif %}
+                     {% endfor %}
                   </div>
                </div>
             </div>
