@@ -7,6 +7,8 @@
       <link href="/assets/style/bootstrap.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/owl.carousel.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/owl.theme.default.css" rel="stylesheet" type="text/css">
+      <link href="/assets/style/fonts.css" rel="stylesheet" type="text/css">
+      <link href="/assets/style/jquery.fancybox.min.css" rel="stylesheet">
       <link href="/assets/style/style.css" rel="stylesheet" type="text/css">
    </head>
    <body>
@@ -45,6 +47,7 @@
             <div class="row">
                <div class="col-md-12">
                   <ul>
+                     <li><a href="/">صفحه اصلی</a></li>
                      <li>
                         <a href="#">کالای دیجیتال</a>
                         <ul>
@@ -101,7 +104,7 @@
                               <p>دوربین کانن از سری 6 با لنز همراه.قابلیت تصویر برداری اچ دی.قابلیت تنظیم در حالت شب . دارای دو عدد باتری اضافی</p>
                            </div>
                            <div class="col-md-6">
-                              <img src="/assets/img/p20lite-listimage-black.png" class="w-75" >
+                              <img src="/assets/img/mobile/xiaomi-12s-ultra-black.png" class="w-75" >
                            </div>
                         </div>
                         <div class="carousel-item">
@@ -111,7 +114,7 @@
                               <p>تبلت 10 اینج هوآوی . با قابلیت نصب سه عدد سیمکارت همزمان . دارای شبکه فورجی و اتصال سریع . دارای باتری اتمی و دوربین 13 مگاپیکسل</p>
                            </div>
                            <div class="col-md-6">
-                              <img src="/assets/img/p20lite-listimage-black.png" class="w-75" >
+                              <img src="/assets/img/mobile/xiaomi-12s-ultra-black.png" class="w-75" >
                            </div>
                         </div>
                      </div>
@@ -133,7 +136,7 @@
                <div class="vizheh">
                   <div class="col-md-6">
                      <div class="vizheh-img">
-                        <img src="/assets/img/p20lite-listimage-black.png" class="w-100" />
+                        <img src="/assets/img/mobile/xiaomi-12s-ultra-black.png" class="w-100" />
                      </div>
                   </div>
                   <div class="col-md-6">
@@ -164,19 +167,17 @@
                <div class="one-slider">
                   <h4>لپتاپ</h4>
                   <div class="owl-carousel owl-theme ov1">
-                     {% for product in products %}
-                     {% if product.category.name == 'Laptop' %}
+                     {% for product in laptops %}
                      <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
                         <div class="item">
                            <figure>
-                              <img src="/assets/img/{{ product.category.link }}{{ product.image.link }}"
-                              class="w-100"  alt="{{ product.image.name }}"/>
+                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}"
+                              class="w-100"  alt="{{ product.name }}"/>
                            </figure>
                            <h5 style="color: #000;">{{ product.name }}</h5>
                            <span>{{ product.price|floatformat:"-3g" }} تومان</span>
                         </div>
                      </a>
-                     {% endif %}
                      {% endfor %}
                   </div>
                </div>
@@ -201,19 +202,17 @@
                <div class="two-slider">
                   <h4>موبایل</h4>
                   <div class="owl-carousel owl-theme ov2">
-                     {% for product in products %}
-                     {% if product.category.name == 'Mobile' %}
+                     {% for product in mobiles %}
                      <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
                         <div class="item">
                            <figure>
-                              <img src="/assets/img/{{ product.category.link }}{{ product.image.link }}"
-                              class="w-100"  alt="{{ product.image.name }}"/>
+                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}"
+                              class="w-100"  alt="{{ product.name }}"/>
                            </figure>
                            <h5 style="color: #000;">{{ product.name }}</h5>
                            <span>{{ product.price|floatformat:"-3g" }} تومان</span>
                         </div>
                      </a>
-                     {% endif %}
                      {% endfor %}
                   </div>
                </div>
@@ -238,83 +237,25 @@
                <div class="three-slider">
                   <h4>محصولات پر بازدید</h4>
                   <div class="owl-carousel owl-theme ov3">
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>کیبورد ایسوس50</h5>
-                        <span>85.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Adata d5-32G</h5>
-                        <span>112.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Verity 16G</h5>
-                        <span>65.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>کفش چرمی نئو</h5>
-                        <span>75.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Sony PS4</h5>
-                        <span>4,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>پاوربانک آداتا</h5>
-                        <span>145.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Dlink 54-65-3</h5>
-                        <span>117.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>میز تلوزیون چوبی</h5>
-                        <span>357.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung Led HD</h5>
-                        <span>3.850.000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>گارد آیفون</h5>
-                        <span>39.000 تومان</span>
-                     </div>
+                     {% for product in products %}
+                     <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
+                        <div class="item">
+                           <figure>
+                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}"
+                              class="w-100"  alt="{{ product.name }}"/>
+                           </figure>
+                           <h5 style="color: #000;">{{ product.name }}</h5>
+                           <span>{{ product.price|floatformat:"-3g" }} تومان</span>
+                        </div>
+                     </a>
+                     {% endfor %}
                   </div>
                </div>
             </div>
          </div>
       </div>
       <!----------------------------------> 
-      <div class="container">
+      <!-- <div class="container">
          <div class="row">
             <div class="col-md-4">
                <div class="blog-content">
@@ -331,40 +272,10 @@
                   <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>	
                </div>
             </div>
-            <div class="col-md-4">
-               <div class="blog-content">
-                  <figure>
-                     <img src="/assets/img/off/watch/1.jpg" class="w-100">
-                  </figure>
-                  <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
-                  <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
-                  <ul>
-                     <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
-                     <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
-                     <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
-                  </ul>
-                  <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>	
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="blog-content">
-                  <figure>
-                     <img src="/assets/img/off/watch/1.jpg" class="w-100">
-                  </figure>
-                  <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
-                  <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
-                  <ul>
-                     <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
-                     <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
-                     <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
-                  </ul>
-                  <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>	
-               </div>
-            </div>
          </div>
-      </div>
+      </div> -->
       <!----------------------------------> 
-      <div class="tab-box">
+      <!-- <div class="tab-box">
          <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#watch"><i class="fa fa-gift"></i>ساعت مچی</a></li>
             <li><a data-toggle="tab" href="#badaligat"><i class="fa fa-gift"></i>بدلیجات</a></li>
@@ -380,56 +291,8 @@
                      <div class="col-md-3">
                         <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
                      </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-                     </div>
                   </div>
                   <div id="badaligat" class="tab-pane fade">
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-                     </div>
                      <div class="col-md-3">
                         <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
                      </div>
@@ -438,56 +301,8 @@
                      <div class="col-md-3">
                         <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
                      </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-                     </div>
                   </div>
                   <div id="bazi" class="tab-pane fade">
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-                     </div>
                      <div class="col-md-3">
                         <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
                      </div>
@@ -496,56 +311,8 @@
                      <div class="col-md-3">
                         <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
                      </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-                     </div>
                   </div>
                   <div id="lebas" class="tab-pane fade">
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
-                     <div class="col-md-3">
-                        <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-                     </div>
                      <div class="col-md-3">
                         <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
                      </div>
@@ -555,7 +322,7 @@
          </div>
       </div>
       </div>
-      </div>
+      </div> -->
       <!---------------------------------->  
       <div class="footer">
          <div class="container">

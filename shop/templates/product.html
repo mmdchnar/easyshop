@@ -2,13 +2,13 @@
 <html>
    <head>
       <meta charset="utf-8">
-      <title>Easy Shop</title>
+      <title>{{ product }}</title>
       <link href="/assets/style/font-awesome.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/bootstrap.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/owl.carousel.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/owl.theme.default.css" rel="stylesheet" type="text/css">
-      <link href='http://www.fontonline.ir/css/BYekan.css' rel='stylesheet' type='text/css'>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+      <link href="/assets/style/fonts.css" rel="stylesheet" type="text/css">
+      <link href="/assets/style/jquery.fancybox.min.css" rel="stylesheet">
       <link href="/assets/style/style.css" rel="stylesheet" type="text/css">
    </head>
    <body>
@@ -47,6 +47,7 @@
             <div class="row">
                <div class="col-md-12">
                   <ul>
+                     <li><a href="/">صفحه اصلی</a></li>
                      <li>
                         <a href="#">کالای دیجیتال</a>
                         <ul>
@@ -84,36 +85,47 @@
                <div class="single-box">
                   <div class="row">
                      <div class="col-md-7">
-                        <h5>Huawei Tab Y300G2</h5>
-                        <h6>تبلت هوآوی 10 اینچ فورجی</h6>
+                        <h4>{{ product }}</h4>
                         <hr>
                         <div class="row">
                            <div class="col-md-7">
                               <div class="single-content-right">
                                  <ul class="brand-ul">
-                                    <li>برند : <a href="#">هوآوی</a></li>
-                                    <li>دسته بندی : <a href="#">موبایل و تبلت</a></li>
+                                    <li>برند : <a href="#">{{ product.brand.name }}</a></li>
+                                    <li>دسته بندی : <a href="/{{ product.category.link }}">{{ product.category.name }}</a></li>
                                  </ul>
-                                 <br>
+                                 <br><br>
                                  <span>مشخصات مختصر محصول :</span><br>
                                  <ul class="product-ul">
-                                    <li></li>
-                                    <li>اندازه نمایشگر 10 اینچ</li>
-                                    <li>دارای شبکه 4G</li>
-                                    <li>دارای دو سیم کارت</li>
-                                    <li>حافظه داخلی 32G</li>
-                                    <li>دارای بدنه فلزی در عین حال سبک</li>
-                                    <li>درای تنوع رنگ</li>
+                                    {% if product.category.name == 'Laptop' %}
+                                    <li>سری پردازنده : {{ product.cpu_serie }}</li>
+                                    <li>ظرفیت حافظه رم : {{ product.ram }} گیگابایت</li>
+                                    <li>نوع حافظه رم : {{ product.ram_type }}</li>
+                                    <li>سازنده پردازنده گرافیکی : {{ product.graphic_brand }}</li>
+                                    <li>اندازه صفحه نمایش : {{ product.size }} اینج</li>
+                                    <li>دقت صفحه نمایش : {{ product.resolution }} پیکسل</li>
+                                    {% endif %}
+
+                                    {% if product.category.name == 'Mobile' %}
+                                    <li>فناوری صفحه‌نمایش : {{ product.display_type }}</li>
+                                    <li>اندازه : {{ product.size }} اینچ</li>
+                                    <li>رزولوشن عکس : {{ product.camera_resolution }} مگاپیکسل</li>
+                                    <li>نسخه سیستم عامل : {{ product.os }}</li>
+                                    {% endif %}
                                  </ul>
                               </div>
                            </div>
                            <div class="col-md-5">
                               <div class="single-content-left">
                                  <ul>
-                                    <span>وضعیت : موجود در انبار</span><br><br>
-                                    <li>گارانتی : Huawei</li>
+                                    {% if product.count %}
+                                    <span style="color: green;">وضعیت : {% if product.count < 6 %}{{ product.count }} عدد{% endif %} موجود در انبار</span><br><br>
+                                    {% else %}
+                                    <span style="color: red;">وضعیت : ناموجود در انبار</span><br><br>
+                                    {% endif %}
+                                    <li>گارانتی : {{ product.brand.name }}</li>
                                     <br>
-                                    <li>
+                                    <!-- <li>
                                        رنگ بندی : 
                                        <ul>
                                           <li><i class="fa fa-square white"></i>سفید</li>
@@ -121,13 +133,13 @@
                                           <li><i class="fa fa-square silver"></i>نقره ای</li>
                                           <li><i class="fa fa-square gold"></i>طلایی</li>
                                        </ul>
-                                    </li>
+                                    </li> -->
                                  </ul>
                               </div>
                            </div>
                         </div>
                         <hr>
-                        <h3>85000 تومان</h3>
+                        <h3>{{ product.price|floatformat:"-3g" }} تومان</h3>
                         <div  class="btn-single">
                            <a href="#"><i class="fa fa-cart-plus"></i>خرید آنلاین</a>
                         </div>
@@ -135,26 +147,18 @@
                      <div class="col-md-5">
                         <div class="single-img">
                            <figure>
-                              <img src="/assets/img/single-tablet.jpg" class="w-100 s-img" data-zoom-image="/assets/img/single-tablet.jpg">
+                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}" class="w-100 s-img" data-zoom-image="/assets/img/{{ product.category.link }}{{ product.images.0 }}">
                            </figure>
                         </div>
                         <div class="single-img-slider">
                            <div class="owl-carousel owl-theme ov-single">
+                              {% for image in product.images %}
                               <div class="item">
-                                 <a data-fancybox="gallery"  href="/assets/img/single-tablet.jpg"><img src="/assets/img/single-tablet.jpg" class="w-100"></a>
+                                 <a data-fancybox="gallery"  href="/assets/img/{{ product.category.link }}{{ image }}">
+                                    <img src="/assets/img/{{ product.category.link }}{{ image }}" class="w-100">
+                                 </a>
                               </div>
-                              <div class="item">
-                                 <a data-fancybox="gallery"  href="/assets/img/single-tablet.jpg"><img src="/assets/img/single-tablet.jpg" class="w-100"></a>
-                              </div>
-                              <div class="item">
-                                 <a data-fancybox="gallery"  href="/assets/img/single-tablet.jpg"><img src="/assets/img/single-tablet.jpg" class="w-100"></a>
-                              </div>
-                              <div class="item">
-                                 <a data-fancybox="gallery"  href="/assets/img/single-tablet.jpg"><img src="/assets/img/single-tablet.jpg" class="w-100"></a>
-                              </div>
-                              <div class="item">
-                                 <a data-fancybox="gallery"  href="/assets/img/single-tablet.jpg"><img src="/assets/img/single-tablet.jpg" class="w-100"></a>
-                              </div>
+                              {% endfor %}
                            </div>
                         </div>
                      </div>
@@ -171,76 +175,18 @@
             <div class="col-md-12">
                <div class="single-two-slider">
                   <div class="owl-carousel owl-theme ov-single-two">
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
-                     <div class="item">
-                        <figure>
-                           <a href=""><img src="/assets/img/Canon_EOS_400D.png" class="w-100" /></a>
-                        </figure>
-                        <h5>Samsung 500</h5>
-                        <span>1,200,000 تومان</span>
-                     </div>
+                     {% for product in products %}
+                     <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
+                        <div class="item">
+                           <figure>
+                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}"
+                              class="w-100"  alt="{{ product.name }}"/>
+                           </figure>
+                           <h5 style="color: #000;">{{ product.name }}</h5>
+                           <span>{{ product.price|floatformat:"-3g" }} تومان</span>
+                        </div>
+                     </a>
+                     {% endfor %}
                   </div>
                </div>
             </div>
@@ -257,17 +203,16 @@
                   </ul>
                   <div class="tab-content">
                      <div id="one" class="tab-pane fade">
-                        <p class="bg-light"><span>شرکت سازنده:</span>هوآوی</p>
-                        <p class="bg-light"><span>مدل:</span>Tab G6</p>
-                        <p class="bg-light"><span>گارانتی:</span>Huawei</p>
-                        <p class="bg-light"><span>شبکه های تلفن:</span>4G-3G-LTE</p>
-                        <p class="bg-light"><span>تعداد سیمکارت:</span>2</p>
-                        <p class="bg-light"><span>حافظه داخلی:</span>32G</p>
-                        <p class="bg-light"><span>پشتیبانی از کارت sd:</span>بله</p>
-                        <p class="bg-light"><span>باتری:</span>1300 میلی آمپر</p>
-                        <p class="bg-light"><span>باتری اضافی:</span>ندارد</p>
-                        <p class="bg-light"><span>جک هدفون:</span>دارد</p>
-                        <p class="bg-light"><span>گارد:</span>ندارد</p>
+                        <p class="bg-light"><span>شرکت سازنده:</span>{{ product.brand.name }}</p>
+                        <p class="bg-light"><span>مدل:</span>{{ product }}</p>
+                        <p class="bg-light"><span>گارانتی:</span>{{ product.brand.name }}</p>
+                        <!-- <p class="bg-light"><span>شبکه های تلفن:</span>4G-3G-LTE</p> -->
+                        <!-- <p class="bg-light"><span>تعداد سیمکارت:</span>2</p> -->
+                        <!-- <p class="bg-light"><span>حافظه داخلی:</span>32G</p> -->
+                        <!-- <p class="bg-light"><span>پشتیبانی از کارت sd:</span>بله</p> -->
+                        <!-- <p class="bg-light"><span>باتری:</span>1300 میلی آمپر</p> -->
+                        <!-- <p class="bg-light"><span>جک هدفون:</span>دارد</p> -->
+                        <!-- <p class="bg-light"><span>گارد:</span>ندارد</p> -->
                      </div>
                      <div id="two" class="tab-pane fade">
                         نظری وجود ندارد...
