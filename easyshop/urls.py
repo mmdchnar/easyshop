@@ -27,8 +27,8 @@ handler404 = 'shop.views._404'
 handler500 = 'shop.views._404'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
     path('', include('shop.urls')),
-    path('favicon.ico', RedirectView.as_view(url='assets/favicon.ico')),
-    re_path(r'^assets/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    path('favicon.ico', RedirectView.as_view(url='assets/favicon.ico'), name='favicon'),
+    re_path(r'^assets/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}, name='assets'),
 ]
