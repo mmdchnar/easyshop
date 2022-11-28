@@ -1,4 +1,5 @@
 <!doctype html>
+{% load mathfilters %}
 <html>
    <head>
       <meta charset="utf-8">
@@ -93,30 +94,25 @@
                <div class="slider-box">
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                      <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        {% for header in headers %}
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ header.id|sub:1 }}"{% if header.id == 1 %} class="active">{% endif %}</li>
+                        {% endfor %}
                      </ol>
                      <div class="carousel-inner">
-                        <div class="carousel-item active">
+                        {% for header in headers %}
+                        <div class="carousel-item {% if header.id == 1 %}active{% endif %}">
                            <div class="col-md-6" style="padding-top: 20px;">
-                              <h4>Canon 638044</h4>
-                              <span>دوربین کانن سری 6</span>
-                              <p>دوربین کانن از سری 6 با لنز همراه.قابلیت تصویر برداری اچ دی.قابلیت تنظیم در حالت شب . دارای دو عدد باتری اضافی</p>
+                              <h4 style="color: #fff;">{{ header.title }}</h4>
+                              <span style="color: #fff;">{{ header.sub_title }}</span>
+                              <p style="color: #fff;">{{ header.description }}</p>
                            </div>
-                           <div class="col-md-6">
-                              <img src="/assets/img/mobile/xiaomi-12s-ultra-0.png" class="w-75" >
+                           <a href="/assets/img/header/{{ header.image }}">
+                              <div class="col-md-6">
+                                 <img src="/assets/img/header/{{ header.image }}" class="w-75" >
+                              </div>
                            </div>
-                        </div>
-                        <div class="carousel-item">
-                           <div class="col-md-6" style="padding-top: 20px;">
-                              <h4>Huawei Tab G45</h4>
-                              <span>تبلت جی 5 هوآوی</span>
-                              <p>تبلت 10 اینج هوآوی . با قابلیت نصب سه عدد سیمکارت همزمان . دارای شبکه فورجی و اتصال سریع . دارای باتری اتمی و دوربین 13 مگاپیکسل</p>
-                           </div>
-                           <div class="col-md-6">
-                              <img src="/assets/img/mobile/xiaomi-12s-ultra-0.png" class="w-75" >
-                           </div>
-                        </div>
+                        </a>
+                        {% endfor %}
                      </div>
                   </div>
                </div>
@@ -136,21 +132,24 @@
                <div class="vizheh">
                   <div class="col-md-6">
                      <div class="vizheh-img">
-                        <img src="/assets/img/mobile/xiaomi-12s-ultra-0.png" class="w-100" />
+                        <a href="/product/{{ special_off.link }}">
+                           <img src="/assets/img/{{ special_off.image }}" class="w-100" />
+                        </a>
                      </div>
                   </div>
                   <div class="col-md-6">
                      <div class="vizheh-content">
-                        <div><del>729,000 تومان</del></div>
-                        <h4>685,000 تومان</h4>
-                        <h3>Huawei Tab Y300G2</h3>
+                        <div><del>{{ special_off.price|floatformat:"-3g" }} تومان</del></div>
+                        <h4>{{ off_price|floatformat:"-3g" }} تومان</h4>
+                        <h3>{{ special_off }}</h3>
                         <ul>
-                           <li>حافظه داخلی 32 گیگابایت</li>
-                           <li>دوربین 13 مگاپیکسل</li>
+                           <li>{{ special_off.detail_1 }}</li>
+                           <li>{{ special_off.detail_2 }}</li>
+                           <li>{{ special_off.detail_3 }}</li>
                         </ul>
-                        <hr>
+                        <br><hr><br>
                         <span>زمان باقیمانده تا پایان سفارش</span> 
-                        <div class="counter" data-minutes-left="1000"></div>
+                        <div class="counter" data-minutes-left="{{ time_left }}"></div>
                      </div>
                   </div>
                   <div class="vizheh-tag">
