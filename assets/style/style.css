@@ -210,6 +210,7 @@ border-bottom:1px solid #fc9492;
 	
 /*-----------------------------*/
 .slider-box{
+border-radius: 5px;
 width:100%;
 min-height:200px;
 color:#fff;
@@ -399,6 +400,7 @@ padding-bottom:5px;
 }
 	
 .one-slider h4{
+    border-radius: 3px;
     background-color: #FC9294;
     color: #fff;
     display: table;
@@ -474,6 +476,7 @@ position:relative;
 }
 
 .two-slider h4,.three-slider h4,.single-two-slider h4{
+border-radius: 3px;
 background-color:#FC9294;
 color:#fff;	
 display:table;	
@@ -540,6 +543,7 @@ margin-bottom:20px;
 }
 
 .book-baner h4,.bodybulding-baner h4{
+border-radius: 3px;
 position:absolute;
 right:0;
 top:0;
@@ -597,6 +601,7 @@ bottom:10px;
 }	
 /*-----------------------------*/
 .ads-title h4{
+border-radius: 3px;
 display:table;
 margin:0 auto;
 color:#fc9492;
