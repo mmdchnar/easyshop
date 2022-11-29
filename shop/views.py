@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Mobile, Laptop, Header, Special_Off
 from random import shuffle
+from django.utils.timezone import now
 # from django.urls import reverse
 # from django.http import HttpResponseRedirect, HttpResponse
 
@@ -25,7 +26,8 @@ def index(request):
 
     special_off = Special_Off.objects.all().first()
     off_price = int(special_off.price * (100 - special_off.off) / 100)
-    time_left = 1531.30 # now - special_off.time
+    time_left = special_off.time - now()
+    time_left = time_left.days * 24*60 + time_left.seconds / 60
 
     return render(request, 'index.html',{
         'mobiles': mobiles[:5],
@@ -56,8 +58,8 @@ def product(request, url):
         _404(request)
 
 
-    product.views += 1
-    product.save()
+    # product.views += 1
+    # product.save()
 
     shuffle(products)
 
