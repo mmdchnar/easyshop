@@ -1,3 +1,4 @@
 django
 django-mathfilters
 psycopg2
+django_mysql
