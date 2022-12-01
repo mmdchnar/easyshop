@@ -1,5 +1,6 @@
 <!doctype html>
 {% load mathfilters %}
+{% load define %}
 <html>
    <head>
       <meta charset="utf-8">
@@ -11,6 +12,7 @@
       <link href="/assets/style/fonts.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/jquery.fancybox.min.css" rel="stylesheet">
       <link href="/assets/style/style.css" rel="stylesheet" type="text/css">
+      <meta name="viewport" content="width=device-width, initial-scale=0.6">
    </head>
    <body>
       <div class="social">
@@ -93,26 +95,24 @@
             <div class="col-md-12">
                <div class="slider-box">
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                     <ol class="carousel-indicators">
-                        {% for header in headers %}
-                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ header.id|sub:1 }}"{% if header.id == 1 %} class="active">{% endif %}</li>
-                        {% endfor %}
+                     <ol class="carousel-indicators">{% for header in headers %}
+                        <li data-target="#carouselExampleIndicators"
+                        data-slide-to="{{ header.id|sub:1 }}"{% if header.id == 1 %}
+                        class="active">{% endif %}</li>{% endfor %}
                      </ol>
-                     <div class="carousel-inner">
-                        {% for header in headers %}
+                     <div class="carousel-inner">{% for header in headers %}
                         <div class="carousel-item {% if header.id == 1 %}active{% endif %}">
                            <div class="col-md-6" style="padding-top: 20px;">
-                              <h4 style="color: #fff;">{{ header.title }}</h4>
+                              <h4 style="color: #fff;">{{ header.product.name }}</h4>
                               <span style="color: #fff;">{{ header.sub_title }}</span>
                               <p style="color: #fff;">{{ header.description }}</p>
                            </div>
-                           <a href="/product/{{ header.link }}">
+                           <a href="/product/{{ header.product.link }}">
                               <div class="col-md-6">
                                  <img src="/assets/img/header/{{ header.image }}" class="w-75" >
                               </div>
                            </div>
-                        </a>
-                        {% endfor %}
+                        </a>{% endfor %}
                      </div>
                   </div>
                </div>
@@ -132,7 +132,7 @@
                <div class="vizheh">
                   <div class="col-md-6">
                      <div class="vizheh-img">
-                        <a href="/product/{{ special_off.link }}">
+                        <a href="/product/{{ special_off.product.link }}">
                            <img src="/assets/img/{{ special_off.image }}" class="w-100" />
                         </a>
                      </div>
@@ -149,7 +149,7 @@
                         </ul>
                         <br><hr><br>
                         <span>زمان باقیمانده تا پایان تخفیف</span> 
-                        <div class="counter" data-minutes-left="{{ time_left }}"></div>
+                        <div class="noer" data-minutes-left="{{ time_left }}"></div>
                      </div>
                   </div>
                   <div class="vizheh-tag">
@@ -167,14 +167,14 @@
                   <h4>لپتاپ</h4>
                   <div class="owl-carousel owl-theme ov1">
                      {% for product in laptops %}
-                     <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
+                     <a href="/product/{{ product.product.link }}" style="text-decoration: none;" title="{{ product.product.name }}">
                         <div class="item">
-                           <figure>
-                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}"
-                              class="w-100"  alt="{{ product.name }}"/>
+                           <figure>{% define 1 as break %}{% for image in images %}{% if break and image.image.name == product.product.name %}
+                              <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                              class="w-100"  alt="{{ product.product.name }}"/>{% define 0 as break %}{% endif %}{% endfor %}
                            </figure>
-                           <h5 style="color: #000;">{{ product.name }}</h5>
-                           <span>{{ product.price|floatformat:"-3g" }} تومان</span>
+                           <h5 style="color: #000;">{{ product.product.name }}</h5>
+                           <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
                         </div>
                      </a>
                      {% endfor %}
@@ -202,14 +202,14 @@
                   <h4>موبایل</h4>
                   <div class="owl-carousel owl-theme ov2">
                      {% for product in mobiles %}
-                     <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
+                     <a href="/product/{{ product.product.link }}" style="text-decoration: none;" title="{{ product.product.name }}">
                         <div class="item">
-                           <figure>
-                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}"
-                              class="w-100"  alt="{{ product.name }}"/>
+                           <figure>{% define 1 as break %}{% for image in images %}{% if break and image.image.name == product.product.name %}
+                              <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                              class="w-100"  alt="{{ product.product.name }}"/>{% define 0 as break %}{% endif %}{% endfor %}
                            </figure>
-                           <h5 style="color: #000;">{{ product.name }}</h5>
-                           <span>{{ product.price|floatformat:"-3g" }} تومان</span>
+                           <h5 style="color: #000;">{{ product.product.name }}</h5>
+                           <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
                         </div>
                      </a>
                      {% endfor %}
@@ -236,15 +236,15 @@
                <div class="three-slider">
                   <h4>محصولات پر بازدید</h4>
                   <div class="owl-carousel owl-theme ov3">
-                     {% for product in products %}
-                     <a href="/product/{{ product.link }}" style="text-decoration: none;" title="{{ product.name }}">
+                     {% for product in most_view %}
+                     <a href="/product/{{ product.product.link }}" style="text-decoration: none;" title="{{ product.product.name }}">
                         <div class="item">
-                           <figure>
-                              <img src="/assets/img/{{ product.category.link }}{{ product.images.0 }}"
-                              class="w-100"  alt="{{ product.name }}"/>
+                           <figure>{% define 1 as break %}{% for image in images %}{% if break and image.image.name == product.product.name %}
+                              <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                              class="w-100"  alt="{{ product.product.name }}"/>{% define 0 as break %}{% endif %}{% endfor %}
                            </figure>
-                           <h5 style="color: #000;">{{ product.name }}</h5>
-                           <span>{{ product.price|floatformat:"-3g" }} تومان</span>
+                           <h5 style="color: #000;">{{ product.product.name }}</h5>
+                           <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
                         </div>
                      </a>
                      {% endfor %}
