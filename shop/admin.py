@@ -1,55 +1,66 @@
 from django.contrib import admin
 from django.forms import ModelForm
 from django.utils.html import format_html
-from .models import Mobile, Laptop, Category, Brand, Header, Special_Off
+from .models import Mobile, Laptop, Category, Brand, Header, Special_Off, Product, Image
 
+
+class ImageInline(admin.TabularInline):
+    model = Image
+    extra = 0
+
+
+
+class ProductAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Product:', {"fields": [
+            'name',
+            'link',
+            'no',
+            'category',
+            'brand',
+            'price',
+            ],}),)
+
+    inlines = [ImageInline]
+
+    list_display = ('name', 'category', 'price', 'Link', 'no')
+
+    def Link(self, obj):
+        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
+    Link.allow_tag = True
 
 
 class MobileAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Mobile:', {"fields": [
-            'name',
-            'link',
-            'category',
-            'brand',
-            'price',
+            'product',
             'size',
             'display_type',
             'camera_resolution',
             'os',
-            ],}),
-        ('Images', {"fields": ['images']}),
-    )
-    list_display = ('name', 'brand', 'price', 'Link')
+            ],}),)
+    list_display = ('product', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
-    
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
     Link.allow_tag = True
 
 
 class LaptopAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Laptop:', {"fields": ([
-            'name',
-            'link',
-            'category',
-            'brand',
-            'price',
+            'product',
             'size',
             'cpu_serie',
             'ram',
             'ram_type',
             'graphic_brand',
             'resolution',
-            ]),}),
-        ('Images', {"fields": ['images']},),
-    )
-    list_display = ('name', 'brand', 'price', 'Link')
+            ]),}),)
+    list_display = ('product', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
-    
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
     Link.allow_tag = True
 
 
@@ -73,27 +84,24 @@ class BrandAdmin(admin.ModelAdmin):
 
     def Link(self, obj):
         return format_html('<a href="/product/{0}">{0}</a>', obj.link)
-    
     Link.allow_tag = True
 
 
 class HeaderAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Header:', {"fields": (['title', 'link', 'sub_title', 'description', 'image']),}),
+        ('Header:', {"fields": (['product', 'sub_title', 'description', 'image']),}),
     )
-    list_display = ('title', 'image', 'Link')
+    list_display = ('product', 'image', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
-    
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
     Link.allow_tag = True
 
 
 class Special_OffAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Special OFF:', {"fields": ([
-            'title',
-            'link',
+            'product',
             'image',
             'time',
             'price',
@@ -103,11 +111,10 @@ class Special_OffAdmin(admin.ModelAdmin):
             'detail_3',
             ]),}),
     )
-    list_display = ('title', 'off', 'time', 'Link')
+    list_display = ('product', 'off', 'time', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
-    
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
     Link.allow_tag = True
 
     def has_add_permission(self, request):
@@ -117,7 +124,7 @@ class Special_OffAdmin(admin.ModelAdmin):
         return retVal
 
 
-
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Special_Off, Special_OffAdmin)
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Category, CategoryAdmin)
