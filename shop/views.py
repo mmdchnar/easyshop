@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Mobile, Laptop, Header, Special_Off
+from .models import Mobile, Laptop, Header, Special_Off, Product, Image
 from random import shuffle
 from django.utils.timezone import now
 # from django.urls import reverse
@@ -18,9 +18,21 @@ def index(request):
     laptops = list(Laptop.objects.all())
     shuffle(laptops)
 
-    products = list(Mobile.objects.order_by('-views')[:3])
-    products += list(Laptop.objects.order_by('-views')[:3])
-    shuffle(products)
+    products = list(Product.objects.order_by('-views')[:6])
+    most_view = []
+
+    for product in products:
+        if product.category.name == 'Mobile':
+            mobile = Mobile.objects.get(product__name=product.name)
+            most_view.append(mobile)
+
+        if product.category.name == 'Laptop':
+            laptop = Laptop.objects.get(product__name=product.name)
+            most_view.append(laptop)
+
+    # shuffle(most_view)
+
+    images = Image.objects.all()
 
     headers = Header.objects.all()
 
@@ -32,7 +44,8 @@ def index(request):
     return render(request, 'index.html',{
         'mobiles': mobiles[:5],
         'laptops': laptops[:5],
-        'products': products[:5],
+        'most_view': most_view[:5],
+        'images': images,
         'headers': headers,
         'special_off': special_off,
         'off_price': off_price,
@@ -42,29 +55,31 @@ def index(request):
 
 def product(request, url):
 
-    mobile = Mobile.objects.filter(link=url+'/')
-    laptop = Laptop.objects.filter(link=url+'/')
+    link = Product.objects.filter(link=url+'/')
 
-    if len(mobile):
-        product = mobile[0]
-        products = list(Mobile.objects.all())
+    if len(link):
 
-    elif len(laptop):
-        product = laptop[0]
-        products = list(Laptop.objects.all())
-        
-    
+        if link[0].category.name == 'Mobile':
+            product = Mobile.objects.get(product__name=link[0].name)
+            products = list(Mobile.objects.all())
+
+        if link[0].category.name == 'Laptop':
+            product = Laptop.objects.get(product__name=link[0].name)
+            products = list(Laptop.objects.all())
+
     else:
         _404(request)
 
 
-    # product.views += 1
-    # product.save()
+    link[0].views += 1
+    link[0].save()
 
     shuffle(products)
+
+    images = Image.objects.all()
 
     return render(request, 'product.html', {
         'product': product,
         'products': products[:5],
+        'images': images,
         })
-
