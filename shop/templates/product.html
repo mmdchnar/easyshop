@@ -136,7 +136,7 @@
                         <hr>
                         <h3>{{ product.product.price|floatformat:"-3g" }} تومان</h3>
                         <div {% if product.product.no == 0 %}style="background-color: red;"{% endif %} class="btn-single">
-                           <!-- <a href="#"> --><i class="fa fa-cart-plus"></i>{% if product.product.no == 0 %}ناموجود{% else %}خرید آنلاین{% endif %}<!-- </a> -->
+                           <a href="#"><i class="fa fa-cart-plus"></i>{% if product.product.no == 0 %}ناموجود{% else %}خرید آنلاین{% endif %}</a>
                         </div>
                      </div>
                      <div class="col-md-5">
