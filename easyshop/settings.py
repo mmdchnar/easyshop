@@ -36,7 +36,6 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'shop',
-    'django_mysql',
     'mathfilters',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -82,8 +81,12 @@ WSGI_APPLICATION = 'easyshop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'easyshop',
+        'USER': 'root',
+        'PASSWORD': os.getenv('DATABASE_PW'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': '5432',
     }
 }
 
