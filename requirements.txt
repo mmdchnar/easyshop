@@ -1,3 +1,3 @@
-django
-django-mathfilters
-psycopg2
+django==4.1.3
+django-mathfilters==1.0.0
+psycopg2==2.9.5
