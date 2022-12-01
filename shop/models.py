@@ -1,8 +1,6 @@
 from django.db.models import Model, CharField, SmallIntegerField,\
     BigIntegerField, ForeignKey, FloatField, IntegerField, DateTimeField, CASCADE
 
-from django_mysql.models import ListCharField
-
 
 
 class Category(Model):
@@ -14,6 +12,7 @@ class Category(Model):
         return self.name
 
 
+
 class Brand(Model):
     name = CharField(max_length=50, unique=True)
     link = CharField(max_length=50, unique=True)
@@ -23,63 +22,64 @@ class Brand(Model):
         return self.name
 
 
-class Mobile(Model):
+
+class Product(Model):
     name = CharField(max_length=50, unique=True)
     link = CharField(max_length=50, unique=True)
-    images = ListCharField(CharField(max_length=255), max_length=255)
     price = BigIntegerField()
-    count = IntegerField(default=1)
+    no = IntegerField(default=1)
     brand = ForeignKey(Brand, CASCADE)
-    category = ForeignKey(Category, CASCADE, default=1)
+    category = ForeignKey(Category, CASCADE)
+    views = IntegerField(default=0)
+
+
+    def __str__(self):
+        return self.name
+
+
+
+class Mobile(Model):
+    product = ForeignKey(Product, CASCADE)
     size = FloatField()
     display_type = CharField(max_length=50)
     camera_resolution = SmallIntegerField()
     os = CharField(max_length=50)
 
-    views = IntegerField(default=0)
-
 
     def __str__(self):
-        return self.name
+        return self.mobile.name
+
 
 
 class Laptop(Model):
-    name = CharField(max_length=50, unique=True)
-    link = CharField(max_length=50, unique=True)
-    images = ListCharField(CharField(max_length=255), max_length=255)
-    price = BigIntegerField()
-    count = IntegerField(default=1)
+    product = ForeignKey(Product, CASCADE)
     size = FloatField()
-    brand = ForeignKey(Brand, CASCADE)
-    category = ForeignKey(Category, CASCADE, default=2)
     cpu_serie = CharField(max_length=50)
     ram = SmallIntegerField()
     ram_type = CharField(max_length=50)
     graphic_brand = CharField(max_length=50)
     resolution = CharField(max_length=50)
-    
-    views = IntegerField(default=0)
 
 
     def __str__(self):
-        return self.name
+        return self.laptop.name
+
 
 
 class Header(Model):
-    title = CharField(max_length=50)
-    link = CharField(max_length=50, default='')
+    product = ForeignKey(Product, CASCADE, default=2)
     sub_title = CharField(max_length=50)
     description = CharField(max_length=250)
     image = CharField(max_length=50)
 
 
     def __str__(self):
-        return self.title
+        return self.product.name
+
 
 
 class Special_Off(Model):
-    title = CharField(max_length=50)
-    link = CharField(max_length=50)
+    product = ForeignKey(Product, CASCADE, default=2)
     image = CharField(max_length=50)
     time = DateTimeField()
     price = BigIntegerField()
@@ -90,4 +90,13 @@ class Special_Off(Model):
 
 
     def __str__(self):
-        return self.title
+        return self.product.name
+
+
+class Image(Model):
+    image = ForeignKey(Product, CASCADE)
+    link = CharField(max_length=50)
+
+
+    def __str__(self):
+        return self.link
