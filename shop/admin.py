@@ -9,7 +9,6 @@ class ImageInline(admin.TabularInline):
     extra = 0
 
 
-
 class ProductAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Product:', {"fields": [
@@ -19,7 +18,7 @@ class ProductAdmin(admin.ModelAdmin):
             'category',
             'brand',
             'price',
-            ],}),)
+        ], }),)
 
     inlines = [ImageInline]
 
@@ -38,7 +37,7 @@ class MobileAdmin(admin.ModelAdmin):
             'display_type',
             'camera_resolution',
             'os',
-            ],}),)
+        ], }),)
     list_display = ('product', 'Link')
 
     def Link(self, obj):
@@ -56,7 +55,7 @@ class LaptopAdmin(admin.ModelAdmin):
             'ram_type',
             'graphic_brand',
             'resolution',
-            ]),}),)
+        ]), }),)
     list_display = ('product', 'Link')
 
     def Link(self, obj):
@@ -66,30 +65,31 @@ class LaptopAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Category:', {"fields": (['name', 'link']),}),
+        ('Category:', {"fields": (['name', 'persian_name', 'link']), }),
     )
-    list_display = ('name', 'Link')
+    list_display = ('name', 'persian_name', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
-    
+        return format_html('<a href="/{0}">{0}</a>', obj.link)
+
     Link.allow_tag = True
 
 
 class BrandAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Brand:', {"fields": (['name', 'link']),}),
+        ('Brand:', {"fields": (['name', 'persian_name', 'link']), }),
     )
-    list_display = ('name', 'Link')
+    list_display = ('name', 'persian_name', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
+        return format_html('<a href="/{0}">{0}</a>', obj.link)
     Link.allow_tag = True
 
 
 class HeaderAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Header:', {"fields": (['product', 'sub_title', 'description', 'image']),}),
+        ('Header:', {
+         "fields": (['product', 'sub_title', 'description', 'image']), }),
     )
     list_display = ('product', 'image', 'Link')
 
@@ -109,7 +109,7 @@ class Special_OffAdmin(admin.ModelAdmin):
             'detail_1',
             'detail_2',
             'detail_3',
-            ]),}),
+        ]), }),
     )
     list_display = ('product', 'off', 'time', 'Link')
 
