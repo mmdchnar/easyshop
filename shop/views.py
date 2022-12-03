@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Mobile, Laptop, Header, Special_Off, Product, Image
+from .models import Mobile, Laptop, Header, Special_Off, Product, Image, Category, Brand
 from random import shuffle
 from django.utils.timezone import now
 # from django.urls import reverse
@@ -58,14 +58,8 @@ def product(request, url):
     link = Product.objects.filter(link=url+'/')
 
     if len(link):
-
-        if link[0].category.name == 'Mobile':
-            product = Mobile.objects.get(product__name=link[0].name)
-            products = list(Mobile.objects.all())
-
-        if link[0].category.name == 'Laptop':
-            product = Laptop.objects.get(product__name=link[0].name)
-            products = list(Laptop.objects.all())
+        product = eval(f'{link[0].category.name}.objects.get(product__name=link[0].name)')
+        products = eval(f'list({link[0].category.name}.objects.all())')
 
     else:
         _404(request)
@@ -83,3 +77,6 @@ def product(request, url):
         'products': products[:5],
         'images': images,
         })
+
+
+
