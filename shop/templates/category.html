@@ -1,4 +1,5 @@
 <!doctype html>
+{% load define %}
 <html>
    <head>
       <meta charset="utf-8">
@@ -7,9 +8,10 @@
       <link href="/assets/style/bootstrap.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/owl.carousel.css" rel="stylesheet" type="text/css">
       <link href="/assets/style/owl.theme.default.css" rel="stylesheet" type="text/css">
-      <link href='http://www.fontonline.ir/css/BYekan.css' rel='stylesheet' type='text/css'>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.6/dist/jquery.fancybox.min.css" />
+      <link href="/assets/style/fonts.css" rel="stylesheet" type="text/css">
+      <link href="/assets/style/jquery.fancybox.min.css" rel="stylesheet">
       <link href="/assets/style/style.css" rel="stylesheet" type="text/css">
+      <meta name="viewport" content="width=device-width, initial-scale=0.6">
    </head>
    <body>
       <div class="social">
@@ -80,71 +82,28 @@
       </div>
       <div class="pages-bnaer text-center">
          <div class="container">
-            <span>دسته بندی</span>
+            <span>{{ group.persian_name }}</span>
          </div>
       </div>
       <div class="container">
          <div class="row">
+            {% for product in products %}
             <div class="col-md-4">
-               <div class="blog-content">
-                  <figure>
-                     <img src="/assets/img/off/watch/1.jpg" class="w-100">
-                  </figure>
-                  <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
-                  <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
-                  <ul>
-                     <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
-                     <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
-                     <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
-                  </ul>
-                  <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>	
-               </div>
+               <a href="/product/{{ product.product.link }}" title="{{ product.product.name }}">
+                  <div class="blog-content">
+                     {% spaceless %}
+                     <figure>{% define 1 as break %}{% for image in images %}{% if break and image.image.name == product.product.name %}
+                        <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}" class="w-100"  alt="{{ product.product.name }}"/>
+                        {% define 0 as break %}
+                        {% endif %}{% endfor %}
+                     </figure>
+                     {% endspaceless %}
+                     <h5>{{ product.product.name }}</h5>
+                     <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
+                  </div>
+               </a>
             </div>
-            <div class="col-md-4">
-               <div class="blog-content">
-                  <figure>
-                     <img src="/assets/img/off/watch/1.jpg" class="w-100">
-                  </figure>
-                  <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
-                  <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
-                  <ul>
-                     <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
-                     <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
-                     <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
-                  </ul>
-                  <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>	
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="blog-content">
-                  <figure>
-                     <img src="/assets/img/off/watch/1.jpg" class="w-100">
-                  </figure>
-                  <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
-                  <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
-                  <ul>
-                     <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
-                     <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
-                     <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
-                  </ul>
-                  <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>	
-               </div>
-            </div>
-            <div class="col-md-4">
-               <div class="blog-content">
-                  <figure>
-                     <img src="/assets/img/off/watch/1.jpg" class="w-100">
-                  </figure>
-                  <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
-                  <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
-                  <ul>
-                     <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
-                     <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
-                     <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
-                  </ul>
-                  <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>	
-               </div>
-            </div>
+            {% endfor %}
          </div>
       </div>
       <div class="footer">
