@@ -5,6 +5,7 @@ from django.db.models import Model, CharField, SmallIntegerField,\
 
 class Category(Model):
     name = CharField(max_length=50, unique=True)
+    persian_name = CharField(max_length=50, unique=True)
     link = CharField(max_length=50, unique=True)
 
 
@@ -15,6 +16,7 @@ class Category(Model):
 
 class Brand(Model):
     name = CharField(max_length=50, unique=True)
+    persian_name = CharField(max_length=50, unique=True)
     link = CharField(max_length=50, unique=True)
 
 
@@ -47,7 +49,7 @@ class Mobile(Model):
 
 
     def __str__(self):
-        return self.mobile.name
+        return self.product.name
 
 
 
@@ -62,7 +64,7 @@ class Laptop(Model):
 
 
     def __str__(self):
-        return self.laptop.name
+        return self.product.name
 
 
 
