@@ -31,6 +31,8 @@ def index(request):
     # shuffle(most_view)
 
     images = Image.objects.all()
+    brands = Brand.objects.all()
+    categories = Category.objects.all()
 
     headers = Header.objects.all()
 
@@ -49,6 +51,8 @@ def index(request):
         'special_off': special_off,
         'off_price': off_price,
         'time_left': time_left,
+        'brands': brands,
+        'categories': categories,
         }
 
     return render(request, 'index.html', context)
@@ -70,12 +74,16 @@ def product(request, url):
         return _404(request)
 
     images = Image.objects.all()
+    brands = Brand.objects.all()
+    categories = Category.objects.all()
 
 
     context = {
         'product': product,
         'products': products,
         'images': images,
+        'brands': brands,
+        'categories': categories,
         }
 
     return render(request, 'product.html', context)
@@ -105,12 +113,18 @@ def category(request, url):
         return _404(request)
 
     images = Image.objects.all()
+    brands = Brand.objects.all()
+    categories = Category.objects.all()
 
 
     context = {
         'products': products[:21],
         'images': images,
         'group': group,
+        'brands': brands,
+        'categories': categories,
         }
 
     return render(request, 'category.html', context)
+
+
