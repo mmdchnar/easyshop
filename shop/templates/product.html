@@ -51,30 +51,28 @@
                   <ul>
                      <li><a href="/">صفحه اصلی</a></li>
                      <li>
-                        <a href="#">کالای دیجیتال</a>
+                        <span>دسته بندی</span>
                         <ul>
-                           <li><a href="#">گوشی موبایل</a></li>
-                           <li><a href="#">تبلت</a></li>
-                           <li><a href="#">لپ تاپ</a></li>
-                           <li><a href="#">نمایشگر</a></li>
-                           <li><a href="#">دوربین عکاسی</a></li>
-                           <li><a href="#">لوازم جانبی رایانه</a></li>
-                           <li><a href="#">لوازم جانبی موبایل</a></li>
-                           <li><a href="#">سایر</a></li>
+                           {% for category in categories %}
+                           <li><a href="{{ category.link }}">{{ category.persian_name }}</a></li>
+                           {% endfor %}
                         </ul>
                      </li>
-                     <li><a href="#">آرایشی و بهداشتی</a></li>
                      <li>
-                        <a href="#">مد و پوشاک</a>
+                        <span>برند ها</span>
                         <ul>
-                           <li><a href="#">لباس فصل</a></li>
-                           <li><a href="#">ساعت  مچی</a></li>
-                           <li><a href="#">بدلیجات</a></li>
+                           {% for brand in brands %}
+                           <li><a href="{{ brand.link }}">{{ brand.persian_name }}</a></li>
+                           {% endfor %}
                         </ul>
                      </li>
-                     <li><a href="#">خانه و آشپزخانه</a></li>
-                     <li><a href="#">ابزار اداری</a></li>
-                     <li><a href="#">اسباب بازی</a></li>
+                     <!-- <li>
+                        <a href="#">اخبار</a>
+                        <ul>
+                           <li><a href="#">تکنولوژی</a></li>
+                           <li><a href="#">علم و دانش</a></li>
+                        </ul>
+                     </li> -->
                   </ul>
                </div>
             </div>
@@ -93,8 +91,10 @@
                            <div class="col-md-7">
                               <div class="single-content-right">
                                  <ul class="brand-ul">
-                                    <li>برند : <a href="/{{ product.product.brand.link }}">{{ product.product.brand.name }}</a></li>
-                                    <li>دسته بندی : <a href="/{{ product.product.category.link }}">{{ product.product.category.name }}</a></li>
+                                    <li>برند : <a href="/{{ product.product.brand.link }}">
+                                       {{ product.product.brand.persian_name }}</a></li>
+                                    <li>دسته بندی : <a href="/{{ product.product.category.link }}">
+                                       {{ product.product.category.persian_name }}</a></li>
                                  </ul>
                                  <br><br>
                                  <span>مشخصات مختصر محصول :</span><br>
@@ -118,7 +118,7 @@
                                     {% if product.product.no %}<span
                                     style="color: green;">وضعیت : {% if product.product.no < 6 %}فقط {{ product.product.no }} عدد{% endif %} موجود در انبار</span><br><br>
                                     {% else %}<span style="color: red;">وضعیت : ناموجود در انبار</span><br><br>
-                                    {% endif %}<li>گارانتی : {{ product.product.brand.name }}</li>
+                                    {% endif %}<li>گارانتی : {{ product.product.brand.persian_name }}</li>
                                     <br>
                                     <!-- <li>
                                        رنگ بندی : 
