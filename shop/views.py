@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Mobile, Laptop, Header, Special_Off, Product, Image, Category, Brand
 from random import shuffle
 from django.utils.timezone import now
+from django.contrib.postgres.search import SearchVector
 # from django.urls import reverse
 # from django.http import HttpResponseRedirect, HttpResponse
 
@@ -128,3 +129,32 @@ def category(request, url):
     return render(request, 'category.html', context)
 
 
+def search(request):
+    products = []
+
+    for cat in Category.objects.all():
+        vector = SearchVector('product__name',
+                              'product__category__name',
+                              'product__category__persian_name',
+                              'product__brand__name',
+                              'product__brand__persian_name',
+                              )
+
+        products += list(eval(f'{cat.name}.objects.annotate(search=vector)\
+            .filter(search=request.GET.get("q"))[:21]'))
+
+    shuffle(products)
+
+
+    images = Image.objects.all()
+    brands = Brand.objects.all()
+    categories = Category.objects.all()
+
+    context = {
+        'products': products[:21],
+        'images': images,
+        'brands': brands,
+        'categories': categories,
+        }
+    
+    return render(request, 'category.html', context)
