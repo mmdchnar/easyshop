@@ -159,7 +159,7 @@ ul {
     -o-transition: all 0.3s;
 }
 
-.main-menu ul li a {
+.main-menu ul li a, span {
     display: block;
     padding: 15px 10px;
     color: #616161;
