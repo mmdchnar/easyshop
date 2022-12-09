@@ -34,7 +34,6 @@ ul {
 
 /*-----------------------------*/
 .social ul {
-    position: absolute;
     position: fixed;
     bottom: 5%;
     left: 0;
@@ -222,7 +221,6 @@ ul {
     display: table;
     color: #fc9492;
     font-size: 20px;
-    margin: 0;
     margin: 5px auto;
     padding-bottom: 5px;
     border-bottom: 1px solid #fc9492;
@@ -247,8 +245,6 @@ ul {
     height: 200px;
     object-fit: contain;
 }
-
-
 
 
 .slider-box .col-md-6 {
@@ -469,6 +465,12 @@ ul {
     font-size: 16px;
 }
 
+.one-slider .item p {
+    color: #CC3434;
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
 .one-slider .owl-carousel .owl-dots {
     display: none;
 }
@@ -557,6 +559,14 @@ ul {
     font-size: 16px;
 }
 
+.two-slider .item p,
+.three-slider .item p,
+.single-two-slider .item p {
+    color: #CC3434;
+    font-size: 14px;
+    margin-bottom: 0px;
+}
+
 .two-slider .owl-carousel .owl-dots,
 .three-slider .owl-carousel .owl-dots,
 .single-two-slider .owl-carousel .owl-dots {
@@ -633,9 +643,9 @@ ul {
 }
 
 .blog-content p {
-    padding: 0 10px;
-    text-align: justify;
-    line-height: 2em;
+    color: #CC3434;
+    font-size: 16px;
+    margin-bottom: 0;
 }
 
 .blog-content ul {
@@ -897,7 +907,12 @@ h6 {
     color: #fc9492;
     margin: 10px auto;
     display: table;
+}
 
+.single-box h4 {
+    color: #CC3434;
+    margin: 10px auto;
+    display: table;
 }
 
 .single-box .btn-single {
@@ -1007,7 +1022,7 @@ h6 {
 .releated-products {
     color: #616161;
     font-size: 18px;
-    padding: 5px 0px 0 10px;
+    padding: 5px 0 0 10px;
     margin-bottom: 20px;
 }
 

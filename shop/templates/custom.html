@@ -1,5 +1,6 @@
 <!doctype html>
 {% load define %}
+{% load mathfilters %}
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
@@ -98,7 +99,14 @@
                             </figure>
                         {% endspaceless %}
                         <h5>{{ product.product.name }}</h5>
-                        <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
+                        <p>
+                            {% if product.product.off %}
+                                <del>
+                                    {{ product.product.price|floatformat:"-3g" }} تومان
+                                </del>
+                            {% endif %}
+                        </p>
+                        <span>{{ product.product.price|sub:product.product.off|floatformat:"-3g" }} تومان</span>
                     </div>
                 </a>
             </div>

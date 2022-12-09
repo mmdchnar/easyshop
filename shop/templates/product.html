@@ -1,4 +1,5 @@
 <!doctype html>
+{% load mathfilters %}
 {% load define %}
 <html>
 <head>
@@ -138,7 +139,13 @@
                             </div>
                         </div>
                         <hr>
-                        <h3>{{ product.product.price|floatformat:"-3g" }} تومان</h3>
+                        <h4>
+                            {% if product.product.off %}
+                                <del>{{ product.product.price|floatformat:"-3g" }} تومان
+                                </del>
+                            {% endif %}
+                        </h4>
+                        <h3>{{ product.product.price|sub:product.product.off|floatformat:"-3g" }} تومان</h3>
                         <div {% if product.product.no == 0 %}style="background-color: red;"{% endif %}
                              class="btn-single">
                             <a href="#"><i class="fa fa-cart-plus"></i>{% if product.product.no == 0 %}ناموجود{% else %}
@@ -192,7 +199,13 @@
                                 {% endif %}{% endfor %}
                             </figure>
                             <h5 style="color: #000;">{{ product.product.name }}</h5>
-                            <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
+                            <p>
+                                {% if product.product.off %}
+                                    <del>{{ product.product.price|floatformat:"-3g" }} تومان
+                                    </del>
+                                {% endif %}
+                            </p>
+                            <span>{{ product.product.price|sub:product.product.off|floatformat:"-3g" }} تومان</span>
                         </div>
                     </a>{% endfor %}
                 </div>
