@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Mobile, Laptop, Header, Special_Off, Product, Image, Category, Brand
+from .models import Mobile, Laptop, Header, SpecialOff, Product, Image, Category, Brand
 from random import shuffle
 from django.utils.timezone import now
 from django.contrib.postgres.search import SearchVector
@@ -38,7 +38,7 @@ def index(request):
 
     headers = Header.objects.all()
 
-    special_off = Special_Off.objects.all().first()
+    special_off = SpecialOff.objects.all().first()
     off_price = int(special_off.price * (100 - special_off.off) / 100)
     time_left = special_off.time - now()
     time_left = time_left.days * 24 * 60 + time_left.seconds / 60
