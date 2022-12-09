@@ -3,3 +3,5 @@ shop/__pycache__
 shop/migrations/__pycache__
 shop/templatetags/__pycache__
 .env
+.idea
+venv
