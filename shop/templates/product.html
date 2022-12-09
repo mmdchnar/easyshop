@@ -1,201 +1,216 @@
 <!doctype html>
 {% load define %}
 <html>
-   <head>
-      <meta charset="utf-8">
-      <title>{{ product.product }}</title>
-      <link href="/assets/style/font-awesome.css" rel="stylesheet" type="text/css">
-      <link href="/assets/style/bootstrap.css" rel="stylesheet" type="text/css">
-      <link href="/assets/style/owl.carousel.css" rel="stylesheet" type="text/css">
-      <link href="/assets/style/owl.theme.default.css" rel="stylesheet" type="text/css">
-      <link href="/assets/style/fonts.css" rel="stylesheet" type="text/css">
-      <link href="/assets/style/jquery.fancybox.min.css" rel="stylesheet">
-      <link href="/assets/style/style.css" rel="stylesheet" type="text/css">
-      <meta name="viewport" content="width=device-width, initial-scale=0.6">
-   </head>
-   <body>
-      <div class="social">
-         <ul>
-            <li><a href=""><i class="fa fa-instagram"></i></a></li>
-            <li><a href=""><i class="fa fa-send"></i></a></li>
-            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-         </ul>
-      </div>
-      <!---------------------------------->      
-      <div class="top2">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="login">
-                     <a href="#" class="mybtn"><i class="fa fa-user-plus"></i>ثبت نام</a>
-                     <a href="#" class="mybtn"><i class="fa fa-user-o"></i>ورود</a>
-                     <a href="#" class="mybtn"><i class="fa fa-cart-arrow-down"></i>سبد</a>  				
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <form action="/search" method="get">
-                     <input type="text" name="q" placeholder="کالای مورد نظر را جستجو کنید">
-                     <button type="submit"><i class="fa fa-search"></i></button>
-                  </form>
-               </div>
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <link href="/assets/style/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="/assets/style/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/assets/style/owl.carousel.css" rel="stylesheet" type="text/css">
+    <link href="/assets/style/owl.theme.default.css" rel="stylesheet" type="text/css">
+    <link href="/assets/style/fonts.css" rel="stylesheet" type="text/css">
+    <link href="/assets/style/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="/assets/style/style.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+</head>
+<body>
+<div class="social">
+    <ul>
+        <li><a href=""><i class="fa fa-instagram"></i></a></li>
+        <li><a href=""><i class="fa fa-send"></i></a></li>
+        <li><a href=""><i class="fa fa-facebook"></i></a></li>
+        <li><a href=""><i class="fa fa-twitter"></i></a></li>
+    </ul>
+</div>
+<!---------------------------------->
+<div class="top2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="login">
+                    <a href="#" class="mybtn"><i class="fa fa-user-plus"></i>ثبت نام</a>
+                    <a href="#" class="mybtn"><i class="fa fa-user-o"></i>ورود</a>
+                    <a href="#" class="mybtn"><i class="fa fa-cart-arrow-down"></i>سبد</a>
+                </div>
             </div>
-         </div>
-      </div>
-      </div><!--top2-->      
-      <!---------------------------------->        
-      <div class="main-menu">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <ul>
-                     <li><a href="/">صفحه اصلی</a></li>
-                     <li>
+            <div class="col-md-6">
+                <form action="/search" method="get">
+                    <input type="text" name="q" placeholder="کالای مورد نظر را جستجو کنید">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><!--top2-->
+<!---------------------------------->
+<div class="main-menu">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li><a href="/">صفحه اصلی</a></li>
+                    <li>
                         <span>دسته بندی</span>
                         <ul>
-                           {% for category in categories %}
-                           <li><a href="/{{ category.link }}">{{ category.persian_name }}</a></li>
-                           {% endfor %}
+                            {% for category in categories %}
+                                <li><a href="/{{ category.link }}">{{ category.persian_name }}</a></li>
+                            {% endfor %}
                         </ul>
-                     </li>
-                     <li>
+                    </li>
+                    <li>
                         <span>برند ها</span>
                         <ul>
-                           {% for brand in brands %}
-                           <li><a href="/{{ brand.link }}">{{ brand.persian_name }}</a></li>
-                           {% endfor %}
+                            {% for brand in brands %}
+                                <li><a href="/{{ brand.link }}">{{ brand.persian_name }}</a></li>
+                            {% endfor %}
                         </ul>
-                     </li>
-                     <!-- <li>
-                        <a href="#">اخبار</a>
-                        <ul>
-                           <li><a href="#">تکنولوژی</a></li>
-                           <li><a href="#">علم و دانش</a></li>
-                        </ul>
-                     </li> -->
-                  </ul>
-               </div>
+                    </li>
+                    <!-- <li>
+                       <a href="#">اخبار</a>
+                       <ul>
+                          <li><a href="#">تکنولوژی</a></li>
+                          <li><a href="#">علم و دانش</a></li>
+                       </ul>
+                    </li> -->
+                </ul>
             </div>
-         </div>
-      </div>
-      <!---------------------------------->  
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="single-box">
-                  <div class="row">
-                     <div class="col-md-7">
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="single-box">
+                <div class="row">
+                    <div class="col-md-7">
                         <h4>{{ product.product }}</h4>
                         <hr>
                         <div class="row">
-                           <div class="col-md-7">
-                              <div class="single-content-right">
-                                 <ul class="brand-ul">
-                                    <li>برند : <a href="/{{ product.product.brand.link }}">
-                                       {{ product.product.brand.persian_name }}</a></li>
-                                    <li>دسته بندی : <a href="/{{ product.product.category.link }}">
-                                       {{ product.product.category.persian_name }}</a></li>
-                                 </ul>
-                                 <br><br>
-                                 <span>مشخصات مختصر محصول :</span><br>
-                                 <ul class="product.product-ul">{% if product.product.category.name == 'Laptop' %}
-                                    <li>سری پردازنده : {{ product.cpu_serie }}</li>
-                                    <li>ظرفیت حافظه رم : {{ product.ram }} گیگابایت</li>
-                                    <li>نوع حافظه رم : {{ product.product.ram_type }}</li>
-                                    <li>سازنده پردازنده گرافیکی : {{ productgraphic_brand }}</li>
-                                    <li>اندازه صفحه نمایش : {{ product.size }} اینج</li>
-                                    <li>دقت صفحه نمایش : {{ product.resolution }} پیکسل</li>{% endif %}
-                                    {% if product.product.category.name == 'Mobile' %}<li>فناوری صفحه‌نمایش : {{ product.display_type }}</li>
-                                    <li>اندازه : {{ product.size }} اینچ</li>
-                                    <li>رزولوشن عکس : {{ product.camera_resolution }} مگاپیکسل</li>
-                                    <li>نسخه سیستم عامل : {{ product.os }}</li>{% endif %}
-                                 </ul>
-                              </div>
-                           </div>
-                           <div class="col-md-5">
-                              <div class="single-content-left">
-                                 <ul>
-                                    {% if product.product.no %}<span
-                                    style="color: green;">وضعیت : {% if product.product.no < 6 %}فقط {{ product.product.no }} عدد{% endif %} موجود در انبار</span><br><br>
-                                    {% else %}<span style="color: red;">وضعیت : ناموجود در انبار</span><br><br>
-                                    {% endif %}<li>گارانتی : {{ product.product.brand.persian_name }}</li>
-                                    <br>
-                                    <!-- <li>
-                                       رنگ بندی : 
-                                       <ul>
-                                          <li><i class="fa fa-square white"></i>سفید</li>
-                                          <li><i class="fa fa-square black"></i>مشکی</li>
-                                          <li><i class="fa fa-square silver"></i>نقره ای</li>
-                                          <li><i class="fa fa-square gold"></i>طلایی</li>
-                                       </ul>
-                                    </li> -->
-                                 </ul>
-                              </div>
-                           </div>
+                            <div class="col-md-7">
+                                <div class="single-content-right">
+                                    <ul class="brand-ul">
+                                        <li>برند : <a href="/{{ product.product.brand.link }}">
+                                            {{ product.product.brand.persian_name }}</a></li>
+                                        <li>دسته بندی : <a href="/{{ product.product.category.link }}">
+                                            {{ product.product.category.persian_name }}</a></li>
+                                    </ul>
+                                    <br><br>
+                                    <span>مشخصات مختصر محصول :</span><br>
+                                    <ul class="product.product-ul">{% if product.product.category.name == 'Laptop' %}
+                                        <li>سری پردازنده : {{ product.cpu_serie }}</li>
+                                        <li>ظرفیت حافظه رم : {{ product.ram }} گیگابایت</li>
+                                        <li>نوع حافظه رم : {{ product.product.ram_type }}</li>
+                                        <li>سازنده پردازنده گرافیکی : {{ productgraphic_brand }}</li>
+                                        <li>اندازه صفحه نمایش : {{ product.size }} اینج</li>
+                                        <li>دقت صفحه نمایش : {{ product.resolution }} پیکسل</li>{% endif %}
+                                        {% if product.product.category.name == 'Mobile' %}
+                                            <li>فناوری صفحه‌نمایش : {{ product.display_type }}</li>
+                                            <li>اندازه : {{ product.size }} اینچ</li>
+                                            <li>رزولوشن عکس : {{ product.camera_resolution }} مگاپیکسل</li>
+                                            <li>نسخه سیستم عامل : {{ product.os }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="single-content-left">
+                                    <ul>
+                                        {% if product.product.no %}<span
+                                                style="color: green;">وضعیت : {% if product.product.no < 6 %}فقط
+                                            {{ product.product.no }} عدد{% endif %} موجود در انبار</span><br><br>
+                                        {% else %}
+                                            <span style="color: red;">وضعیت : ناموجود در انبار</span><br><br>
+                                        {% endif %}
+                                        <li>گارانتی : {{ product.product.brand.persian_name }}</li>
+                                        <br>
+                                        <!-- <li>
+                                           رنگ بندی :
+                                           <ul>
+                                              <li><i class="fa fa-square white"></i>سفید</li>
+                                              <li><i class="fa fa-square black"></i>مشکی</li>
+                                              <li><i class="fa fa-square silver"></i>نقره ای</li>
+                                              <li><i class="fa fa-square gold"></i>طلایی</li>
+                                           </ul>
+                                        </li> -->
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <hr>
                         <h3>{{ product.product.price|floatformat:"-3g" }} تومان</h3>
-                        <div {% if product.product.no == 0 %}style="background-color: red;"{% endif %} class="btn-single">
-                           <a href="#"><i class="fa fa-cart-plus"></i>{% if product.product.no == 0 %}ناموجود{% else %}خرید آنلاین{% endif %}</a>
+                        <div {% if product.product.no == 0 %}style="background-color: red;"{% endif %}
+                             class="btn-single">
+                            <a href="#"><i class="fa fa-cart-plus"></i>{% if product.product.no == 0 %}ناموجود{% else %}
+                                خرید آنلاین{% endif %}</a>
                         </div>
-                     </div>
-                     <div class="col-md-5">
+                    </div>
+                    <div class="col-md-5">
                         <div class="single-img">
-                           <figure>{% define 1 as break %}{% for image in images %}{% if break and image.image.name == product.product.name %}
-                              <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
-                                   class="w-100 s-img"
-                                   data-zoom-image="/assets/img/{{ product.product.category.link }}{{ image.link }}">{% define 0 as break %}{% endif %}{% endfor %}
-                           </figure>
+                            <figure>{% define 1 as break %}{% for image in images %}
+                                {% if break and image.image.name == product.product.name %}
+                                    <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                                         class="w-100 s-img"
+                                         data-zoom-image="/assets/img/
+                                                 {{ product.product.category.link }}{{ image.link }}">
+                                    {% define 0 as break %}{% endif %}{% endfor %}
+                            </figure>
                         </div>
                         <div class="single-img-slider">
-                           <div class="owl-carousel owl-theme ov-single">{% for image in images %}{% if image.image.name == product.product.name %}
-                              <div class="item">
-                                 <a data-fancybox="gallery"  href="/assets/img/{{ product.product.category.link }}{{ image.link }}">
-                                    <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}" class="w-100">
-                                 </a>
-                              </div>{% endif %}{% endfor %}
-                           </div>
+                            <div class="owl-carousel owl-theme ov-single">
+                                {% for image in images %}{% if image.image.name == product.product.name %}
+                                    <div class="item">
+                                        <a data-fancybox="gallery"
+                                           href="/assets/img/{{ product.product.category.link }}{{ image.link }}">
+                                            <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                                                 class="w-100">
+                                        </a>
+                                    </div>{% endif %}{% endfor %}
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <!---------------------------------->  
-      <div class="container">
-         <span class="releated-product.products">محصولات مرتبط</span>
-         <hr>
-         <div class="row">
-            <div class="col-md-12">
-               <div class="single-two-slider">
-                  <div class="owl-carousel owl-theme ov-single-two">{% for product in products %}
-                     <a href="/product/{{ product.product.link }}" style="text-decoration: none;" title="{{ product.product.name }}">
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="container">
+    <span class="releated-product.products">محصولات مرتبط</span>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="single-two-slider">
+                <div class="owl-carousel owl-theme ov-single-two">{% for product in products %}
+                    <a href="/product/{{ product.product.link }}" style="text-decoration: none;"
+                       title="{{ product.product.name }}">
                         <div class="item">
-                           <figure>{% define 1 as break %}{% for image in images %}{% if break and image.image.name == product.product.name %}
-                              <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
-                              class="w-100"  alt="{{ product.product.name }}"/>{% define 0 as break %}{% endif %}{% endfor %}
-                           </figure>
-                           <h5 style="color: #000;">{{ product.product.name }}</h5>
-                           <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
+                            <figure>{% define 1 as break %}{% for image in images %}
+                                {% if break and image.image.name == product.product.name %}
+                                    <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                                         class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
+                                {% endif %}{% endfor %}
+                            </figure>
+                            <h5 style="color: #000;">{{ product.product.name }}</h5>
+                            <span>{{ product.product.price|floatformat:"-3g" }} تومان</span>
                         </div>
-                     </a>{% endfor %}
-                  </div>
-               </div>
+                    </a>{% endfor %}
+                </div>
             </div>
-         </div>
-      </div>
-      <!---------------------------------->  
-      <div class="container">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="single-tabs">
-                  <ul class="nav nav-tabs">
-                     <li class="active"><a data-toggle="tab" href="#one"><i class="fa fa-file"></i>مشخصات فنی</a></li>
-                     <li><a data-toggle="tab" href="#two"><i class="fa fa-pencil"></i>نظرات کاربران</a></li>
-                  </ul>
-                  <div class="tab-content">
-                     <div id="one" class="tab-pane fade">
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="single-tabs">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#one"><i class="fa fa-file"></i>مشخصات فنی</a></li>
+                    <li><a data-toggle="tab" href="#two"><i class="fa fa-pencil"></i>نظرات کاربران</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="one" class="tab-pane fade">
                         <p class="bg-light"><span>شرکت سازنده:</span>{{ product.product.brand.name }}</p>
                         <p class="bg-light"><span>مدل:</span>{{ product.product }}</p>
                         <p class="bg-light"><span>گارانتی:</span>{{ product.product.brand.name }}</p>
@@ -206,22 +221,22 @@
                         <!-- <p class="bg-light"><span>باتری:</span>1300 میلی آمپر</p> -->
                         <!-- <p class="bg-light"><span>جک هدفون:</span>دارد</p> -->
                         <!-- <p class="bg-light"><span>گارد:</span>ندارد</p> -->
-                     </div>
-                     <div id="two" class="tab-pane fade">
+                    </div>
+                    <div id="two" class="tab-pane fade">
                         نظری وجود ندارد...
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <!---------------------------------->  
-      <div class="footer">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-5">
-                  <div class="footer-description">
-                     <ul>
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="footer-description">
+                    <ul>
                         <li>تضمین اصالت کالاهای فروخته شده</li>
                         <li>فروش برند های معتبر</li>
                         <li>پاسخگویی 24 ساعته</li>
@@ -229,46 +244,46 @@
                         <li>امکان بازگشت تا یک هفته در صورت عدم رضایت مشتری</li>
                         <li>خرید آسان و مطمئن</li>
                         <li>قیمت های مناسب</li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="footer-description2">
-                     <ul>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="footer-description2">
+                    <ul>
                         <li><i class="fa fa-truck"></i>تحویل پستی سریع</li>
                         <li><i class="fa fa-plane"></i>ارسال با پست پیشتاز و سفارشی</li>
                         <li><i class="fa fa-cart-arrow-down"></i>خرید آسان و راحت</li>
-                     </ul>
-                  </div>
-               </div>
-               <div class="col-md-3">
-                  <div class="news-form">
-                     <h5>در خبرنامه عضو شوید</h5>
-                     <form action="" >
-                        <input type="email" placeholder="ایمیل خود را وارد کنید" >
-                        <button type="submit" ><i class="fa fa-envelope-o"></i></button>
-                     </form>
-                  </div>
-               </div>
+                    </ul>
+                </div>
             </div>
-         </div>
-      </div>
-      <!----------------------------------> 
-      <div class="copy-right">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12 text-center">
-                  &copy;&nbsp;&nbsp;طراحی و کدنویسی سئو 90&nbsp;&nbsp;&nbsp;&nbsp;
-                  <span>info@seo90.ir</span>
-               </div>
+            <div class="col-md-3">
+                <div class="news-form">
+                    <h5>در خبرنامه عضو شوید</h5>
+                    <form action="">
+                        <input type="email" placeholder="ایمیل خود را وارد کنید">
+                        <button type="submit"><i class="fa fa-envelope-o"></i></button>
+                    </form>
+                </div>
             </div>
-         </div>
-      </div>
-      <!----------------------------------> 
-      <script src="/assets/js/jquery-3.3.1.js" type="text/javascript"></script>
-      <script src="/assets/js/jquery.simple.timer.js" type="text/javascript"></script>
-      <script src="/assets/js/bootstrap.js" type="text/javascript"></script>
-      <script src="/assets/js/owl.carousel.min.js" type="text/javascript"></script>
-      <script src="/assets/js/js.js" type="text/javascript"></script>
-   </body>
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<div class="copy-right">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                &copy;&nbsp;&nbsp;طراحی و کدنویسی سئو 90&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>info@seo90.ir</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!---------------------------------->
+<script src="/assets/js/jquery-3.3.1.js" type="text/javascript"></script>
+<script src="/assets/js/jquery.simple.timer.js" type="text/javascript"></script>
+<script src="/assets/js/bootstrap.js" type="text/javascript"></script>
+<script src="/assets/js/owl.carousel.min.js" type="text/javascript"></script>
+<script src="/assets/js/js.js" type="text/javascript"></script>
+</body>
 </html>
