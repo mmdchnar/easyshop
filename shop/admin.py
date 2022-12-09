@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.forms import ModelForm
 from django.utils.html import format_html
-from .models import Mobile, Laptop, Category, Brand, Header, Special_Off, Product, Image
+from .models import Mobile, Laptop, Category, Brand, Header, SpecialOff, Product, Image
 
 
 class ImageInline(admin.TabularInline):
@@ -14,15 +14,16 @@ class ProductAdmin(admin.ModelAdmin):
         ('Product:', {"fields": [
             'name',
             'link',
-            'no',
+            'count',
             'category',
             'brand',
             'price',
+            'off',
         ], }),)
 
     inlines = [ImageInline]
 
-    list_display = ('name', 'category', 'price', 'Link', 'no')
+    list_display = ('name', 'category', 'price', 'Link', 'count')
 
     def Link(self, obj):
         return format_html('<a href="/product/{0}">{0}</a>', obj.link)
@@ -119,13 +120,13 @@ class Special_OffAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         retVal = super().has_add_permission(request)
-        if retVal and Special_Off.objects.exists():
+        if retVal and SpecialOff.objects.exists():
             retVal = False
         return retVal
 
 
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Special_Off, Special_OffAdmin)
+admin.site.register(SpecialOff, Special_OffAdmin)
 admin.site.register(Header, HeaderAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Brand, BrandAdmin)

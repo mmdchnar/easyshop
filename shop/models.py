@@ -1,6 +1,5 @@
-from django.db.models import Model, CharField, SmallIntegerField,\
+from django.db.models import Model, CharField, SmallIntegerField, \
     BigIntegerField, ForeignKey, FloatField, IntegerField, DateTimeField, CASCADE
-
 
 
 class Category(Model):
@@ -8,10 +7,8 @@ class Category(Model):
     persian_name = CharField(max_length=50, unique=True)
     link = CharField(max_length=50, unique=True)
 
-
     def __str__(self):
         return self.name
-
 
 
 class Brand(Model):
@@ -19,25 +16,22 @@ class Brand(Model):
     persian_name = CharField(max_length=50, unique=True)
     link = CharField(max_length=50, unique=True)
 
-
     def __str__(self):
         return self.name
-
 
 
 class Product(Model):
     name = CharField(max_length=50, unique=True)
     link = CharField(max_length=50, unique=True)
     price = BigIntegerField()
-    no = IntegerField(default=1)
+    off = BigIntegerField(default=0)
+    count = IntegerField(default=1)
     brand = ForeignKey(Brand, CASCADE)
     category = ForeignKey(Category, CASCADE)
     views = IntegerField(default=0)
 
-
     def __str__(self):
         return self.name
-
 
 
 class Mobile(Model):
@@ -47,10 +41,8 @@ class Mobile(Model):
     camera_resolution = SmallIntegerField()
     os = CharField(max_length=50)
 
-
     def __str__(self):
         return self.product.name
-
 
 
 class Laptop(Model):
@@ -62,25 +54,21 @@ class Laptop(Model):
     graphic_brand = CharField(max_length=50)
     resolution = CharField(max_length=50)
 
-
     def __str__(self):
         return self.product.name
 
 
-
 class Header(Model):
-    product = ForeignKey(Product, CASCADE, default=2)
+    product = ForeignKey(Product, CASCADE)
     sub_title = CharField(max_length=50)
     description = CharField(max_length=250)
     image = CharField(max_length=50)
 
-
     def __str__(self):
         return self.product.name
 
 
-
-class Special_Off(Model):
+class SpecialOff(Model):
     product = ForeignKey(Product, CASCADE, default=2)
     image = CharField(max_length=50)
     time = DateTimeField()
@@ -90,7 +78,6 @@ class Special_Off(Model):
     detail_2 = CharField(max_length=50)
     detail_3 = CharField(max_length=50)
 
-
     def __str__(self):
         return self.product.name
 
@@ -98,7 +85,6 @@ class Special_Off(Model):
 class Image(Model):
     image = ForeignKey(Product, CASCADE)
     link = CharField(max_length=50)
-
 
     def __str__(self):
         return self.link
