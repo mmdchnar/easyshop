@@ -3,12 +3,13 @@ from .models import Mobile, Laptop, Header, Special_Off, Product, Image, Categor
 from random import shuffle
 from django.utils.timezone import now
 from django.contrib.postgres.search import SearchVector
+
+
 # from django.urls import reverse
 # from django.http import HttpResponseRedirect, HttpResponse
 
 
-
-def _404(request, ex = None):
+def _404(request, ex=None):
     return render(request, '404.html')
 
 
@@ -40,8 +41,7 @@ def index(request):
     special_off = Special_Off.objects.all().first()
     off_price = int(special_off.price * (100 - special_off.off) / 100)
     time_left = special_off.time - now()
-    time_left = time_left.days * 24*60 + time_left.seconds / 60
-
+    time_left = time_left.days * 24 * 60 + time_left.seconds / 60
 
     context = {
         'mobiles': mobiles,
@@ -54,7 +54,7 @@ def index(request):
         'time_left': time_left,
         'brands': brands,
         'categories': categories,
-        }
+    }
 
     return render(request, 'index.html', context)
 
@@ -78,19 +78,19 @@ def product(request, url):
     brands = Brand.objects.all()
     categories = Category.objects.all()
 
-
     context = {
+        'title': product.product,
         'product': product,
         'products': products,
         'images': images,
         'brands': brands,
         'categories': categories,
-        }
+    }
 
     return render(request, 'product.html', context)
 
 
-def category(request, url):
+def categories_and_brands(request, url):
     url = url.lower() + '/'
 
     category = Category.objects.filter(link=url)
@@ -109,7 +109,7 @@ def category(request, url):
         shuffle(products)
 
         group = brand.first()
-    
+
     else:
         return _404(request)
 
@@ -117,19 +117,24 @@ def category(request, url):
     brands = Brand.objects.all()
     categories = Category.objects.all()
 
-
     context = {
+        'title': 'محصولات ' + group.persian_name,
         'products': products[:21],
         'images': images,
-        'group': group,
         'brands': brands,
         'categories': categories,
-        }
+        'group': group,
+    }
 
-    return render(request, 'category.html', context)
+    return render(request, 'custom.html', context)
 
 
 def search(request):
+    query = request.GET.get("q")
+
+    if not query:
+        return _404(request)
+
     products = []
 
     for cat in Category.objects.all():
@@ -141,20 +146,21 @@ def search(request):
                               )
 
         products += list(eval(f'{cat.name}.objects.annotate(search=vector)\
-            .filter(search=request.GET.get("q"))[:21]'))
+            .filter(search=query)[:21]'))
 
     shuffle(products)
-
 
     images = Image.objects.all()
     brands = Brand.objects.all()
     categories = Category.objects.all()
 
     context = {
+        'title': 'نتیجه جستجو',
         'products': products[:21],
         'images': images,
         'brands': brands,
         'categories': categories,
-        }
-    
-    return render(request, 'category.html', context)
+        'query': query,
+    }
+
+    return render(request, 'custom.html', context)
