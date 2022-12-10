@@ -54,7 +54,7 @@
                         <span>دسته بندی</span>
                         <ul>
                             {% for category in categories %}
-                                <li><a href="/{{ category.link }}">{{ category.persian_name }}</a></li>
+                                <li><a href="/{{ category.name }}">{{ category.persian_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -62,7 +62,7 @@
                         <span>برند ها</span>
                         <ul>
                             {% for brand in brands %}
-                                <li><a href="/{{ brand.link }}">{{ brand.persian_name }}</a></li>
+                                <li><a href="/{{ brand.name }}">{{ brand.persian_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -80,19 +80,19 @@
 </div>
 <div class="pages-bnaer text-center">
     <div class="container">
-        <span>{{ group.persian_name }}</span>
+        <span>{{ group }}</span>
     </div>
 </div>
 <div class="container">
     <div class="row">
         {% for product in products %}
             <div class="col-md-4">
-                <a href="/product/{{ product.product.link }}" title="{{ product.product.name }}">
+                <a href="/product/{{ product.product.name }}" title="{{ product.product.name }}">
                     <div class="blog-content">
                         {% spaceless %}
                             <figure>{% define 1 as break %}{% for image in images %}
-                                {% if break and image.image.name == product.product.name %}
-                                    <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                                {% if break and image.product.name == product.product.name %}
+                                    <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
                                          class="w-100" alt="{{ product.product.name }}"/>
                                     {% define 0 as break %}
                                 {% endif %}{% endfor %}

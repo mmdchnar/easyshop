@@ -55,7 +55,7 @@
                         <span>دسته بندی</span>
                         <ul>
                             {% for category in categories %}
-                                <li><a href="/{{ category.link }}">{{ category.persian_name }}</a></li>
+                                <li><a href="/{{ category.name }}">{{ category.persian_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -63,7 +63,7 @@
                         <span>برند ها</span>
                         <ul>
                             {% for brand in brands %}
-                                <li><a href="/{{ brand.link }}">{{ brand.persian_name }}</a></li>
+                                <li><a href="/{{ brand.name }}">{{ brand.persian_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -99,7 +99,7 @@
                                 <span style="color: #fff;">{{ header.sub_title }}</span>
                                 <p style="color: #fff;">{{ header.description }}</p>
                             </div>
-                            <a href="/product/{{ header.product.link }}">
+                            <a href="/product/{{ header.product.name }}">
                                 <div class="col-md-6">
                                     <img src="/assets/img/header/{{ header.image }}" class="w-75">
                                 </div>
@@ -125,7 +125,7 @@
             <div class="vizheh">
                 <div class="col-md-6">
                     <div class="vizheh-img">
-                        <a href="/product/{{ special_off.product.link }}">
+                        <a href="/product/{{ special_off.product.name }}">
                             <img src="/assets/img/{{ special_off.image }}" class="w-100"/>
                         </a>
                     </div>
@@ -164,15 +164,19 @@
                 <h4>لپتاپ</h4>
                 <div class="owl-carousel owl-theme ov1">
                     {% for product in laptops %}
-                        <a href="/product/{{ product.product.link }}" style="text-decoration: none;"
+                        <a href="/product/{{ product.product.name }}" style="text-decoration: none;"
                            title="{{ product.product.name }}">
                             <div class="item">
-                                <figure>{% define 1 as break %}{% for image in images %}
-                                    {% if break and image.image.name == product.product.name %}
-                                        <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
-                                             class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
-                                    {% endif %}{% endfor %}
-                                </figure>
+                                {% spaceless %}
+                                    <figure>
+                                        {% define 1 as break %}{% for image in images %}
+                                            {% if break and image.product.name == product.product.name %}
+                                                <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                                     class="w-100" alt="{{ product.product.name }}"/>
+                                                {% define 0 as break %}
+                                            {% endif %}{% endfor %}
+                                    </figure>
+                                {% endspaceless %}
                                 <h5 style="color: #000;">{{ product.product.name }}</h5>
                                 <p>
                                     {% if product.product.off %}
@@ -208,15 +212,19 @@
                 <h4>موبایل</h4>
                 <div class="owl-carousel owl-theme ov2">
                     {% for product in mobiles %}
-                        <a href="/product/{{ product.product.link }}" style="text-decoration: none;"
+                        <a href="/product/{{ product.product.name }}" style="text-decoration: none;"
                            title="{{ product.product.name }}">
                             <div class="item">
-                                <figure>{% define 1 as break %}{% for image in images %}
-                                    {% if break and image.image.name == product.product.name %}
-                                        <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
-                                             class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
-                                    {% endif %}{% endfor %}
-                                </figure>
+                                {% spaceless %}
+                                    <figure>
+                                        {% define 1 as break %}{% for image in images %}
+                                            {% if break and image.product.name == product.product.name %}
+                                                <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                                     class="w-100" alt="{{ product.product.name }}"/>
+                                                {% define 0 as break %}
+                                            {% endif %}{% endfor %}
+                                    </figure>
+                                {% endspaceless %}
                                 <h5 style="color: #000;">{{ product.product.name }}</h5>
                                 <p>
                                     {% if product.product.off %}
@@ -252,15 +260,17 @@
                 <h4>محصولات پر بازدید</h4>
                 <div class="owl-carousel owl-theme ov3">
                     {% for product in most_view %}
-                        <a href="/product/{{ product.product.link }}" style="text-decoration: none;"
+                        <a href="/product/{{ product.product.name }}" style="text-decoration: none;"
                            title="{{ product.product.name }}">
                             <div class="item">
-                                <figure>{% define 1 as break %}{% for image in images %}
-                                    {% if break and image.image.name == product.product.name %}
-                                        <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
-                                             class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
-                                    {% endif %}{% endfor %}
-                                </figure>
+                                {% spaceless %}
+                                    <figure>{% define 1 as break %}{% for image in images %}
+                                        {% if break and image.product.name == product.product.name %}
+                                            <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                                 class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
+                                        {% endif %}{% endfor %}
+                                    </figure>
+                                {% endspaceless %}
                                 <h5 style="color: #000;">{{ product.product.name }}</h5>
                                 <p>
                                     {% if product.product.off %}

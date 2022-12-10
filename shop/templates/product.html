@@ -54,7 +54,7 @@
                         <span>دسته بندی</span>
                         <ul>
                             {% for category in categories %}
-                                <li><a href="/{{ category.link }}">{{ category.persian_name }}</a></li>
+                                <li><a href="/{{ category.name }}">{{ category.persian_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -62,7 +62,7 @@
                         <span>برند ها</span>
                         <ul>
                             {% for brand in brands %}
-                                <li><a href="/{{ brand.link }}">{{ brand.persian_name }}</a></li>
+                                <li><a href="/{{ brand.name }}">{{ brand.persian_name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -91,9 +91,9 @@
                             <div class="col-md-7">
                                 <div class="single-content-right">
                                     <ul class="brand-ul">
-                                        <li>برند : <a href="/{{ product.product.brand.link }}">
+                                        <li>برند : <a href="/{{ product.product.brand.name }}">
                                             {{ product.product.brand.persian_name }}</a></li>
-                                        <li>دسته بندی : <a href="/{{ product.product.category.link }}">
+                                        <li>دسته بندی : <a href="/{{ product.product.category.name }}">
                                             {{ product.product.category.persian_name }}</a></li>
                                     </ul>
                                     <br><br>
@@ -155,21 +155,21 @@
                     <div class="col-md-5">
                         <div class="single-img">
                             <figure>{% define 1 as break %}{% for image in images %}
-                                {% if break and image.image.name == product.product.name %}
-                                    <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                                {% if break and image.product.name == product.product.name %}
+                                    <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
                                          class="w-100 s-img"
                                          data-zoom-image="/assets/img/
-                                                 {{ product.product.category.link }}{{ image.link }}">
+                                                 {{ product.product.category.name }}/{{ image.name }}">
                                     {% define 0 as break %}{% endif %}{% endfor %}
                             </figure>
                         </div>
                         <div class="single-img-slider">
                             <div class="owl-carousel owl-theme ov-single">
-                                {% for image in images %}{% if image.image.name == product.product.name %}
+                                {% for image in images %}{% if image.product.name == product.product.name %}
                                     <div class="item">
                                         <a data-fancybox="gallery"
-                                           href="/assets/img/{{ product.product.category.link }}{{ image.link }}">
-                                            <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
+                                           href="/assets/img/{{ product.product.category.name }}/{{ image.name }}">
+                                            <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
                                                  class="w-100">
                                         </a>
                                     </div>{% endif %}{% endfor %}
@@ -189,15 +189,18 @@
         <div class="col-md-12">
             <div class="single-two-slider">
                 <div class="owl-carousel owl-theme ov-single-two">{% for product in products %}
-                    <a href="/product/{{ product.product.link }}" style="text-decoration: none;"
+                    <a href="/product/{{ product.product.name }}" style="text-decoration: none;"
                        title="{{ product.product.name }}">
                         <div class="item">
-                            <figure>{% define 1 as break %}{% for image in images %}
-                                {% if break and image.image.name == product.product.name %}
-                                    <img src="/assets/img/{{ product.product.category.link }}{{ image.link }}"
-                                         class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
-                                {% endif %}{% endfor %}
-                            </figure>
+                            {% spaceless %}
+                                <figure>
+                                    {% define 1 as break %}{% for image in images %}
+                                        {% if break and image.product.name == product.product.name %}
+                                            <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                                 class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
+                                        {% endif %}{% endfor %}
+                                </figure>
+                            {% endspaceless %}
                             <h5 style="color: #000;">{{ product.product.name }}</h5>
                             <p>
                                 {% if product.product.off %}
