@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
 from .models import Mobile, Laptop, Header, SpecialOff, Product, Image, Category, Brand
-from random import shuffle
-from django.utils.timezone import now
 from django.contrib.postgres.search import SearchVector
-
+from django.shortcuts import render, get_object_or_404
+from django.core.exceptions import ObjectDoesNotExist
+from django.utils.timezone import now
+from random import shuffle
 
 # from django.urls import reverse
 # from django.http import HttpResponseRedirect, HttpResponse
@@ -21,13 +21,13 @@ def index(request):
     products = list(Product.objects.order_by('-views')[:10])
     most_view = []
 
-    for product in products:
-        if product.category.name == 'Mobile':
-            mobile = Mobile.objects.get(product__name=product.name)
+    for _product in products:
+        if _product.category.name == 'Mobile':
+            mobile = Mobile.objects.get(product__name=_product.name)
             most_view.append(mobile)
 
-        if product.category.name == 'Laptop':
-            laptop = Laptop.objects.get(product__name=product.name)
+        if _product.category.name == 'Laptop':
+            laptop = Laptop.objects.get(product__name=_product.name)
             most_view.append(laptop)
 
     # shuffle(most_view)
@@ -60,27 +60,20 @@ def index(request):
 
 
 def product(request, url):
-    url = url.lower() + '/'
+    _product = get_object_or_404(Product, name__iexact=url)
+    __product = eval(f'{_product.category.name}.objects.get(product__name__iexact=__product.name)')
+    products = eval(f'{_product.category.name}.objects.order_by("?")[:10]')
 
-    link = Product.objects.filter(link=url)
-
-    if len(link):
-        product = eval(f'{link.first().category.name}.objects.get(product__name=link.first().name)')
-        products = eval(f'{link.first().category.name}.objects.order_by("?")[:10]')
-
-        link.first().views += 1
-        link.first().save()
-
-    else:
-        return _404(request)
+    _product.views += 1
+    _product.save()
 
     images = Image.objects.all()
     brands = Brand.objects.all()
     categories = Category.objects.all()
 
     context = {
-        'title': product.product,
-        'product': product,
+        'title': __product.product,
+        'product': __product,
         'products': products,
         'images': images,
         'brands': brands,
@@ -91,27 +84,18 @@ def product(request, url):
 
 
 def categories_and_brands(request, url):
-    url = url.lower() + '/'
+    # url = url.lower() + '/'
 
-    category = Category.objects.filter(link=url)
-    brand = Brand.objects.filter(link=url)
+    try:
+        group = Category.objects.get(name__iexact=url)
+        products = eval(f'{group.name}.objects.order_by("?")[:21]')
 
-    if len(category):
-        products = eval(f'{category.first().name}.objects.order_by("?")[:21]')
-        group = category.first()
-
-    elif len(brand):
+    except ObjectDoesNotExist:
+        group = get_object_or_404(Brand, name__iexact=url)
         products = []
-
         for cat in Category.objects.all():
-            products += list(eval(f'{cat.name}.objects.filter(product__brand__link=url)[:21]'))
-
-        shuffle(products)
-
-        group = brand.first()
-
-    else:
-        return _404(request)
+            products += list(eval(f'{cat.name}.objects.filter(product__brand__name__iexact=url)[:21]'))
+            shuffle(products)
 
     images = Image.objects.all()
     brands = Brand.objects.all()
@@ -123,7 +107,7 @@ def categories_and_brands(request, url):
         'images': images,
         'brands': brands,
         'categories': categories,
-        'group': group,
+        'group': group.persian_name,
     }
 
     return render(request, 'custom.html', context)
