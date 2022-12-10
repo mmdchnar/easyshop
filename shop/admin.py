@@ -13,7 +13,6 @@ class ProductAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Product:', {"fields": [
             'name',
-            'link',
             'count',
             'category',
             'brand',
@@ -26,7 +25,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'price', 'Link', 'count')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.link)
+        return format_html('<a href="/product/{0}">{0}</a>', obj.name)
     Link.allow_tag = True
 
 
@@ -42,7 +41,7 @@ class MobileAdmin(admin.ModelAdmin):
     list_display = ('product', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.name)
     Link.allow_tag = True
 
 
@@ -60,30 +59,30 @@ class LaptopAdmin(admin.ModelAdmin):
     list_display = ('product', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.name)
     Link.allow_tag = True
 
 
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Category:', {"fields": (['name', 'persian_name', 'link']), }),
+        ('Category:', {"fields": (['name', 'persian_name']), }),
     )
     list_display = ('name', 'persian_name', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/{0}">{0}</a>', obj.link)
+        return format_html('<a href="/{0}">{0}</a>', obj.name)
 
     Link.allow_tag = True
 
 
 class BrandAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('Brand:', {"fields": (['name', 'persian_name', 'link']), }),
+        ('Brand:', {"fields": (['name', 'persian_name']), }),
     )
     list_display = ('name', 'persian_name', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/{0}">{0}</a>', obj.link)
+        return format_html('<a href="/{0}">{0}</a>', obj.name)
     Link.allow_tag = True
 
 
@@ -95,7 +94,7 @@ class HeaderAdmin(admin.ModelAdmin):
     list_display = ('product', 'image', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.name)
     Link.allow_tag = True
 
 
@@ -115,14 +114,14 @@ class Special_OffAdmin(admin.ModelAdmin):
     list_display = ('product', 'off', 'time', 'Link')
 
     def Link(self, obj):
-        return format_html('<a href="/product/{0}">{0}</a>', obj.product.link)
+        return format_html('<a href="/product/{0}">{0}</a>', obj.product.name)
     Link.allow_tag = True
 
     def has_add_permission(self, request):
-        retVal = super().has_add_permission(request)
-        if retVal and SpecialOff.objects.exists():
-            retVal = False
-        return retVal
+        ret_val = super().has_add_permission(request)
+        if ret_val and SpecialOff.objects.exists():
+            ret_val = False
+        return ret_val
 
 
 admin.site.register(Product, ProductAdmin)

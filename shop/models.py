@@ -5,7 +5,6 @@ from django.db.models import Model, CharField, SmallIntegerField, \
 class Category(Model):
     name = CharField(max_length=50, unique=True)
     persian_name = CharField(max_length=50, unique=True)
-    link = CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
@@ -14,7 +13,6 @@ class Category(Model):
 class Brand(Model):
     name = CharField(max_length=50, unique=True)
     persian_name = CharField(max_length=50, unique=True)
-    link = CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
@@ -22,7 +20,6 @@ class Brand(Model):
 
 class Product(Model):
     name = CharField(max_length=50, unique=True)
-    link = CharField(max_length=50, unique=True)
     price = BigIntegerField()
     off = BigIntegerField(default=0)
     count = IntegerField(default=1)
@@ -83,8 +80,8 @@ class SpecialOff(Model):
 
 
 class Image(Model):
-    image = ForeignKey(Product, CASCADE)
-    link = CharField(max_length=50)
+    product = ForeignKey(Product, CASCADE)
+    name = CharField(max_length=50)
 
     def __str__(self):
-        return self.link
+        return self.product.name
