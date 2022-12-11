@@ -92,7 +92,7 @@
                         {% spaceless %}
                             <figure>{% define 1 as break %}{% for image in images %}
                                 {% if break and image.product.name == product.product.name %}
-                                    <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                    <img src="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}"
                                          class="w-100" alt="{{ product.product.name }}"/>
                                     {% define 0 as break %}
                                 {% endif %}{% endfor %}

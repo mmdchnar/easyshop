@@ -42,7 +42,6 @@
             </div>
         </div>
     </div>
-</div>
 </div><!--top2-->
 <!---------------------------------->
 <div class="main-menu">
@@ -66,7 +65,7 @@
                                 <li><a href="/{{ brand.name }}">{{ brand.persian_name }}</a></li>
                             {% endfor %}
                         </ul>
-                    </li>
+                    </li>{% spaceless %}
                     <!-- <li>
                        <a href="#">اخبار</a>
                        <ul>
@@ -74,7 +73,7 @@
                           <li><a href="#">علم و دانش</a></li>
                        </ul>
                     </li> -->
-                </ul>
+                {% endspaceless %}</ul>
             </div>
         </div>
     </div>
@@ -171,7 +170,7 @@
                                     <figure>
                                         {% define 1 as break %}{% for image in images %}
                                             {% if break and image.product.name == product.product.name %}
-                                                <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                                <img src="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}"
                                                      class="w-100" alt="{{ product.product.name }}"/>
                                                 {% define 0 as break %}
                                             {% endif %}{% endfor %}
@@ -219,7 +218,7 @@
                                     <figure>
                                         {% define 1 as break %}{% for image in images %}
                                             {% if break and image.product.name == product.product.name %}
-                                                <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                                <img src="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}"
                                                      class="w-100" alt="{{ product.product.name }}"/>
                                                 {% define 0 as break %}
                                             {% endif %}{% endfor %}
@@ -228,7 +227,8 @@
                                 <h5 style="color: #000;">{{ product.product.name }}</h5>
                                 <p>
                                     {% if product.product.off %}
-                                        <del>{{ product.product.price|floatformat:"-3g" }} تومان
+                                        <del>
+                                            {{ product.product.price|floatformat:"-3g" }} تومان
                                         </del>
                                     {% endif %}
                                 </p>
@@ -266,7 +266,7 @@
                                 {% spaceless %}
                                     <figure>{% define 1 as break %}{% for image in images %}
                                         {% if break and image.product.name == product.product.name %}
-                                            <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                            <img src="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}"
                                                  class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
                                         {% endif %}{% endfor %}
                                     </figure>
@@ -287,76 +287,78 @@
         </div>
     </div>
 </div>
-<!---------------------------------->
-<!-- <div class="container">
-   <div class="row">
-      <div class="col-md-4">
-         <div class="blog-content">
-            <figure>
-               <img src="/assets/img/off/watch/1.jpg" class="w-100">
-            </figure>
-            <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
-            <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
-            <ul>
-               <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
-               <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
-               <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
-            </ul>
-            <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>
-         </div>
-      </div>
-   </div>
-</div> -->
-<!---------------------------------->
-<!-- <div class="tab-box">
-   <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#watch"><i class="fa fa-gift"></i>ساعت مچی</a></li>
-      <li><a data-toggle="tab" href="#badaligat"><i class="fa fa-gift"></i>بدلیجات</a></li>
-      <li><a data-toggle="tab" href="#behdashti"><i class="fa fa-gift"></i>آرایشی و بهداشتی</a></li>
-      <li><a data-toggle="tab" href="#bazi"><i class="fa fa-gift"></i>اسباب بازی</a></li>
-      <li><a data-toggle="tab" href="#varzesh"><i class="fa fa-gift"></i>تجهیزات ورزشی</a></li>
-      <li><a data-toggle="tab" href="#lebas"><i class="fa fa-gift"></i>لباس فصل</a></li>
-   </ul>
-   <div class="container">
-      <div class="row">
-         <div class="tab-content">
-            <div id="watch" class="tab-pane fade">
-               <div class="col-md-3">
-                  <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
-               </div>
-            </div>
-            <div id="badaligat" class="tab-pane fade">
-               <div class="col-md-3">
-                  <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
-               </div>
-            </div>
-            <div id="behdashti" class="tab-pane fade">
-               <div class="col-md-3">
-                  <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
-               </div>
-            </div>
-            <div id="bazi" class="tab-pane fade">
-               <div class="col-md-3">
-                  <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
-               </div>
-            </div>
-            <div id="varzesh" class="tab-pane fade">
-               <div class="col-md-3">
-                  <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
-               </div>
-            </div>
-            <div id="lebas" class="tab-pane fade">
-               <div class="col-md-3">
-                  <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-</div>
-</div> -->
-<!---------------------------------->
+{% spaceless %}
+    <!---------------------------------->
+    <!-- <div class="container">
+       <div class="row">
+          <div class="col-md-4">
+             <div class="blog-content">
+                <figure>
+                   <img src="/assets/img/off/watch/1.jpg" class="w-100">
+                </figure>
+                <h5><i class="fa fa-title"></i>گوشی هوشمند جیبی</h5>
+                <p>گوشی هوشمند جیبی تکنولوژی جدید کمپانی اپل،با خاصیت ضد آب بودن و حمل بسیار مخفی،باقابلیت حمل داخل گوش...</p>
+                <ul>
+                   <li><i class="fa fa-bars"></i>دسته بندی : تکنولوژی</li>
+                   <li><i class="fa fa-calendar-o"></i>نوشته شده در : 97/10/20</li>
+                   <li><i class="fa fa-user-o"></i>نویسنده : سئو 90</li>
+                </ul>
+                <a href="#" class="mybtn"><i class="fa fa-continuous"></i>ادامه مطلب&raquo;</a>
+             </div>
+          </div>
+       </div>
+    </div> -->
+    <!---------------------------------->
+    <!-- <div class="tab-box">
+       <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#watch"><i class="fa fa-gift"></i>ساعت مچی</a></li>
+          <li><a data-toggle="tab" href="#badaligat"><i class="fa fa-gift"></i>بدلیجات</a></li>
+          <li><a data-toggle="tab" href="#behdashti"><i class="fa fa-gift"></i>آرایشی و بهداشتی</a></li>
+          <li><a data-toggle="tab" href="#bazi"><i class="fa fa-gift"></i>اسباب بازی</a></li>
+          <li><a data-toggle="tab" href="#varzesh"><i class="fa fa-gift"></i>تجهیزات ورزشی</a></li>
+          <li><a data-toggle="tab" href="#lebas"><i class="fa fa-gift"></i>لباس فصل</a></li>
+       </ul>
+       <div class="container">
+          <div class="row">
+             <div class="tab-content">
+                <div id="watch" class="tab-pane fade">
+                   <div class="col-md-3">
+                      <a href="#"><img src="/assets/img/off/watch/1.jpg" class="w-100" /></a>
+                   </div>
+                </div>
+                <div id="badaligat" class="tab-pane fade">
+                   <div class="col-md-3">
+                      <a href="#"><img src="/assets/img/off/badal/1.jpg" class="w-100" /></a>
+                   </div>
+                </div>
+                <div id="behdashti" class="tab-pane fade">
+                   <div class="col-md-3">
+                      <a href="#"><img src="/assets/img/off/behdashti/1.jpg" class="w-100" /></a>
+                   </div>
+                </div>
+                <div id="bazi" class="tab-pane fade">
+                   <div class="col-md-3">
+                      <a href="#"><img src="/assets/img/off/bazi/1.jpg" class="w-100" /></a>
+                   </div>
+                </div>
+                <div id="varzesh" class="tab-pane fade">
+                   <div class="col-md-3">
+                      <a href="#"><img src="/assets/img/off/varzesh/8.jpg" class="w-100" /></a>
+                   </div>
+                </div>
+                <div id="lebas" class="tab-pane fade">
+                   <div class="col-md-3">
+                      <a href="#"><img src="/assets/img/off/lebas/1.jpg" class="w-100" /></a>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    </div>
+    </div> -->
+    <!---------------------------------->
+{% endspaceless %}
 <div class="footer">
     <div class="container">
         <div class="row">

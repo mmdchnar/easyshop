@@ -1,7 +1,7 @@
 <!doctype html>
 {% load mathfilters %}
 {% load define %}
-<html>
+<html lang="en-US">
 <head>
     <meta charset="utf-8">
     <title>{{ title }}</title>
@@ -93,18 +93,19 @@
                                     <ul class="brand-ul">
                                         <li>برند : <a href="/{{ product.product.brand.name }}">
                                             {{ product.product.brand.persian_name }}</a></li>
-                                        <li>دسته بندی : <a href="/{{ product.product.category.name }}">
+                                        <li>دسته بندی : <a href="/{{ product.product.category.name|lower }}">
                                             {{ product.product.category.persian_name }}</a></li>
                                     </ul>
                                     <br><br>
                                     <span>مشخصات مختصر محصول :</span><br>
-                                    <ul class="product.product-ul">{% if product.product.category.name == 'Laptop' %}
-                                        <li>سری پردازنده : {{ product.cpu_serie }}</li>
-                                        <li>ظرفیت حافظه رم : {{ product.ram }} گیگابایت</li>
-                                        <li>نوع حافظه رم : {{ product.product.ram_type }}</li>
-                                        <li>سازنده پردازنده گرافیکی : {{ productgraphic_brand }}</li>
-                                        <li>اندازه صفحه نمایش : {{ product.size }} اینج</li>
-                                        <li>دقت صفحه نمایش : {{ product.resolution }} پیکسل</li>{% endif %}
+                                    <ul class="product.product-ul">
+                                        {% if product.product.category.name == 'Laptop' %}
+                                            <li>سری پردازنده : {{ product.cpu_serie }}</li>
+                                            <li>ظرفیت حافظه رم : {{ product.ram }} گیگابایت</li>
+                                            <li>نوع حافظه رم : {{ product.product.ram_type }}</li>
+                                            <li>سازنده پردازنده گرافیکی : {{ productgraphic_brand }}</li>
+                                            <li>اندازه صفحه نمایش : {{ product.size }} اینج</li>
+                                            <li>دقت صفحه نمایش : {{ product.resolution }} پیکسل</li>{% endif %}
                                         {% if product.product.category.name == 'Mobile' %}
                                             <li>فناوری صفحه‌نمایش : {{ product.display_type }}</li>
                                             <li>اندازه : {{ product.size }} اینچ</li>
@@ -153,26 +154,29 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div class="single-img">
+                        <div class="single-img">{% spaceless %}
                             <figure>{% define 1 as break %}{% for image in images %}
                                 {% if break and image.product.name == product.product.name %}
-                                    <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                    <img src="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}"
                                          class="w-100 s-img"
+                                         alt="{{ image.name }}"
                                          data-zoom-image="/assets/img/
-                                                 {{ product.product.category.name }}/{{ image.name }}">
+                                                 {{ product.product.category.name|lower }}/{{ image.name }}">
                                     {% define 0 as break %}{% endif %}{% endfor %}
-                            </figure>
+                            </figure>{% endspaceless %}
                         </div>
                         <div class="single-img-slider">
-                            <div class="owl-carousel owl-theme ov-single">
+                            <div class="owl-carousel owl-theme ov-single">{% spaceless %}
                                 {% for image in images %}{% if image.product.name == product.product.name %}
                                     <div class="item">
                                         <a data-fancybox="gallery"
-                                           href="/assets/img/{{ product.product.category.name }}/{{ image.name }}">
-                                            <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
-                                                 class="w-100">
+                                           href="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}">
+                                            <img src="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}"
+                                                 class="w-100"
+                                                 alt="{{ image.name }}">
                                         </a>
-                                    </div>{% endif %}{% endfor %}
+                                    </div>{% endif %}
+                                {% endfor %}{% endspaceless %}
                             </div>
                         </div>
                     </div>
@@ -196,18 +200,17 @@
                                 <figure>
                                     {% define 1 as break %}{% for image in images %}
                                         {% if break and image.product.name == product.product.name %}
-                                            <img src="/assets/img/{{ product.product.category.name }}/{{ image.name }}"
+                                            <img src="/assets/img/{{ product.product.category.name|lower }}/{{ image.name }}"
                                                  class="w-100" alt="{{ product.product.name }}"/>{% define 0 as break %}
                                         {% endif %}{% endfor %}
                                 </figure>
                             {% endspaceless %}
                             <h5 style="color: #000;">{{ product.product.name }}</h5>
-                            <p>
-                                {% if product.product.off %}
-                                    <del>{{ product.product.price|floatformat:"-3g" }} تومان
-                                    </del>
-                                {% endif %}
-                            </p>
+                            <p>{% if product.product.off %}
+                                <del>
+                                    {{ product.product.price|floatformat:"-3g" }} تومان
+                                </del>
+                            {% endif %}</p>
                             <span>{{ product.product.price|sub:product.product.off|floatformat:"-3g" }} تومان</span>
                         </div>
                     </a>{% endfor %}
