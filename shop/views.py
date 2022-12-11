@@ -61,7 +61,7 @@ def index(request):
 
 def product(request, url):
     _product = get_object_or_404(Product, name__iexact=url)
-    __product = eval(f'{_product.category.name}.objects.get(product__name__iexact=__product.name)')
+    __product = eval(f'{_product.category.name}.objects.get(product__name__iexact=_product.name)')
     products = eval(f'{_product.category.name}.objects.order_by("?")[:10]')
 
     _product.views += 1
