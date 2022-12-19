@@ -1,11 +1,16 @@
 from django.contrib import admin
 from django.forms import ModelForm
 from django.utils.html import format_html
-from .models import Mobile, Laptop, Category, Brand, Header, SpecialOff, Product, Image
+from .models import Mobile, Laptop, Category, Brand, Header, SpecialOff, Product, Image, Detail
 
 
 class ImageInline(admin.TabularInline):
     model = Image
+    extra = 0
+
+
+class DetailInline(admin.TabularInline):
+    model = Detail
     extra = 0
 
 
@@ -20,7 +25,7 @@ class ProductAdmin(admin.ModelAdmin):
             'off',
         ], }),)
 
-    inlines = [ImageInline]
+    inlines = [ImageInline, DetailInline]
 
     list_display = ('name', 'category', 'price', 'Link', 'count')
 

@@ -65,6 +65,15 @@ class Header(Model):
         return self.product.name
 
 
+class Detail(Model):
+    product = ForeignKey(Product, CASCADE)
+    name = CharField(max_length=50)
+    detail = CharField(max_length=2000)
+
+    def __str__(self):
+        return self.name
+
+
 class SpecialOff(Model):
     product = ForeignKey(Product, CASCADE, default=2)
     image = CharField(max_length=50)
