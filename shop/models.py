@@ -2,6 +2,14 @@ from django.db.models import Model, CharField, SmallIntegerField, \
     BigIntegerField, ForeignKey, FloatField, IntegerField, DateTimeField, CASCADE
 
 
+class Account(Model):
+    username = CharField(max_length=50, unique=True)
+    password = CharField(max_length=50)
+
+    def __str__(self):
+        return self.username
+
+
 class Category(Model):
     name = CharField(max_length=50, unique=True)
     persian_name = CharField(max_length=50, unique=True)
