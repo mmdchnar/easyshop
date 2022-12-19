@@ -102,3 +102,12 @@ class Image(Model):
 
     def __str__(self):
         return self.product.name
+
+
+class BuyList(Model):
+    user = ForeignKey(Account, CASCADE)
+    product = ForeignKey(Product, CASCADE)
+
+    def __str__(self):
+        return self.user
+
