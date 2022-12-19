@@ -12,7 +12,7 @@
     <link href="/assets/style/fonts.css" rel="stylesheet" type="text/css">
     <link href="/assets/style/jquery.fancybox.min.css" rel="stylesheet">
     <link href="/assets/style/style.css" rel="stylesheet" type="text/css">
-    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="social">
@@ -229,17 +229,8 @@
                     <li><a data-toggle="tab" href="#two"><i class="fa fa-pencil"></i>نظرات کاربران</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div id="one" class="tab-pane fade">
-                        <p class="bg-light"><span>شرکت سازنده:</span>{{ product.product.brand.name }}</p>
-                        <p class="bg-light"><span>مدل:</span>{{ product.product }}</p>
-                        <p class="bg-light"><span>گارانتی:</span>{{ product.product.brand.name }}</p>
-                        <!-- <p class="bg-light"><span>شبکه های تلفن:</span>4G-3G-LTE</p> -->
-                        <!-- <p class="bg-light"><span>تعداد سیمکارت:</span>2</p> -->
-                        <!-- <p class="bg-light"><span>حافظه داخلی:</span>32G</p> -->
-                        <!-- <p class="bg-light"><span>پشتیبانی از کارت sd:</span>بله</p> -->
-                        <!-- <p class="bg-light"><span>باتری:</span>1300 میلی آمپر</p> -->
-                        <!-- <p class="bg-light"><span>جک هدفون:</span>دارد</p> -->
-                        <!-- <p class="bg-light"><span>گارد:</span>ندارد</p> -->
+                    <div id="one" class="tab-pane fade">{% for detail in details %}
+                        <span>{{ detail.name }}</span><p class="bg-light">{{ detail.detail }}</p>{% endfor %}
                     </div>
                     <div id="two" class="tab-pane fade">
                         نظری وجود ندارد...

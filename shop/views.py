@@ -1,4 +1,4 @@
-from .models import Mobile, Laptop, Header, SpecialOff, Product, Image, Category, Brand
+from .models import Mobile, Laptop, Header, SpecialOff, Product, Image, Category, Brand, Detail
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
@@ -64,6 +64,8 @@ def product(request, url):
     __product = eval(f'{_product.category.name}.objects.get(product__name__iexact=_product.name)')
     products = eval(f'{_product.category.name}.objects.order_by("?")[:10]')
 
+    details = Detail.objects.filter(product=_product)
+    
     _product.views += 1
     _product.save()
 
@@ -78,6 +80,7 @@ def product(request, url):
         'images': images,
         'brands': brands,
         'categories': categories,
+        'details': details,
     }
 
     return render(request, 'product.html', context)

@@ -1049,14 +1049,16 @@ h6 {
 .single-tabs .tab-content p {
     padding: 10px;
     color: #616161;
+    background-color: #eee;
     margin: 5px;
     font-size: 12px;
 }
 
 .single-tabs .tab-content span {
     display: inline-block;
-    width: 50%;
+    width: 100%;
     color: #000;
+    background-color: #efeeee;
     font-size: 13px;
 }
 
