@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.forms import ModelForm
 from django.utils.html import format_html
-from .models import Mobile, Laptop, Category, Brand, Header, SpecialOff, Product, Image, Detail
+from .models import Mobile, Laptop, Category, Brand, Header,\
+     SpecialOff, Product, Image, Detail, Account, Session
 
 
 class ImageInline(admin.TabularInline):
@@ -12,6 +13,24 @@ class ImageInline(admin.TabularInline):
 class DetailInline(admin.TabularInline):
     model = Detail
     extra = 0
+
+
+class SessionInline(admin.StackedInline):
+    model = Session
+    extra = 0
+
+
+class AccountAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Product:', {"fields": [
+            'name',
+            'email',
+            'password',
+        ], }),)
+
+    inlines = [SessionInline]
+
+    list_display = ('name', 'email')
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -129,6 +148,7 @@ class Special_OffAdmin(admin.ModelAdmin):
         return ret_val
 
 
+admin.site.register(Account, AccountAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(SpecialOff, Special_OffAdmin)
 admin.site.register(Header, HeaderAdmin)
