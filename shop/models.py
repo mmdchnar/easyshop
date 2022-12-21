@@ -3,11 +3,12 @@ from django.db.models import Model, CharField, SmallIntegerField, \
 
 
 class Account(Model):
-    username = CharField(max_length=50, unique=True)
+    name = CharField(max_length=50)
+    email = CharField(max_length=100, unique=True)
     password = CharField(max_length=50)
 
     def __str__(self):
-        return self.username
+        return self.name
 
 
 class Category(Model):
@@ -104,10 +105,10 @@ class Image(Model):
         return self.product.name
 
 
-class BuyList(Model):
+class Session(Model):
     user = ForeignKey(Account, CASCADE)
-    product = ForeignKey(Product, CASCADE)
+    session = CharField(max_length=250, unique=True)
+    description = CharField(max_length=100)
 
     def __str__(self):
-        return self.user
-
+        return self.user.name
