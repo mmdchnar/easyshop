@@ -1,11 +1,11 @@
-from .models import Mobile, Laptop, Header, SpecialOff,\
-     Product, Image, Category, Brand, Detail, Account, Session
+from .models import Mobile, Laptop, Header, SpecialOff, Product,\
+    Image, Category, Brand, Detail, Account, Session, Cart
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.timezone import now
 from django.db.utils import IntegrityError
-from random import shuffle
+from random import shuffle, randint
 from secrets import token_urlsafe
 
 # from django.urls import reverse
@@ -240,11 +240,137 @@ def login(request):
                 user=account,
                 session=token,
                 description=request.META['HTTP_USER_AGENT'],
-                )
-        session.save()
+                date=now(),
+                ).save()
 
         request.session['user-session'] = token
 
         return redirect(redir)
 
     return render(request, 'login.html', context)
+
+
+def cart(request):
+    try:
+        account = Session.objects.get(session=request.session['user-session']).user
+    except (ObjectDoesNotExist, KeyError):
+        return redirect(f'/login/?redirect={request.get_full_path()}')
+
+    cart = Cart.objects.filter(user=account)
+
+    warnings = []
+
+    add = request.GET.get('add')
+    if add:
+        product = get_object_or_404(Product, name=add)
+
+        item = Cart.objects.filter(product=product)
+
+        if item:
+            if (product.count - item[0].count) > 0:
+                item[0].count += 1
+                item[0].save()
+                return redirect('/cart')
+            else:
+                warnings.append(f'{product.name} اضافه نشد زیرا موجودی انبار کافی نمیباشد!')
+        else:
+            if product.count:
+                Cart(user=account, product=product).save()
+                return redirect('/cart')
+            else:
+                warnings.append(f'{product.name} اضافه نشد زیرا موجودی انبار کافی نمیباشد!')
+    
+    remove = request.GET.get('remove')
+    if remove:
+        product = get_object_or_404(Product, name=remove)
+        cart = Cart.objects.filter(product=product)
+
+        if cart:
+            if cart[0].count < 2:
+                cart.delete()
+            else:
+                cart[0].count -= 1
+                cart[0].save()
+        
+        return redirect('/cart')
+
+    total_price = 0
+    total_off = 0
+    for item in cart:
+        if item.product.count < item.count:
+            warnings.append(f'تعداد {item.product.name} در سبد خرید تغییر کرد زیرا موجودی انبار تغییر کرده')
+            
+            if item.product.count < 1:
+                item.delete()
+                continue
+            else:
+                item.count = item.product.count
+                item.save()
+
+        total_price += item.product.price * item.count
+        total_off += item.product.off * item.count
+
+    tax = 9/100
+    shipping = 50000
+    checkout = total_price - total_off + ((total_price - total_off) * tax) + shipping
+
+    cart = Cart.objects.filter(user=account)
+    images = Image.objects.all()
+    brands = Brand.objects.all()
+    categories = Category.objects.all()
+
+    context = {
+        'total_price': total_price,
+        'total_off': total_off,
+        'checkout': checkout,
+        'shipping': shipping,
+        'cart': cart,
+        'tax': tax,
+        'account': account,
+        'images': images,
+        'brands': brands,
+        'categories': categories,
+        'errors': [],
+        'warnings': warnings,
+        'tracking_code': randint(10**10, 10**11),
+        }
+    
+    if warnings:
+        return render(request, 'cart.html', context)
+
+    if request.method == 'POST':
+            address = request.POST.get('address')
+            number = request.POST.get('mobile-number')
+            zip = request.POST.get('zip-code').replace('-', '')
+
+            if not (address and address.replace(' ', '')):
+                context['errors'].append('آدرس اشتباه است!')
+
+            if number and number[:1] == '+':
+                number = number[1:]
+
+            try:
+                number = '0' + str(int(number))
+                zip = str(int(zip))
+            except ValueError:
+                pass
+
+            if not (number and number.isnumeric() and len(number) == 11 and number[:2] == '09'):
+                context['errors'].append('شماره همراه اشتباه است!')
+
+            if not (zip and zip.isnumeric() and len(zip) == 10):
+                context['errors'].append('کد پستی اشتباه است!')
+
+            if not context['errors']:
+                if cart:
+                    for item in cart:
+                        item.product.count -= 1
+
+                    cart.delete()
+
+                    return render(request, 'order-succeed.html', context)
+
+                else:
+                    return redirect('/cart')
+
+    return render(request, 'cart.html', context)
