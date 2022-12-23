@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.forms import ModelForm
 from django.utils.html import format_html
 from .models import Mobile, Laptop, Category, Brand, Header,\
-     SpecialOff, Product, Image, Detail, Account, Session
+     SpecialOff, Product, Image, Detail, Account, Session, Cart
 
 
 class ImageInline(admin.TabularInline):
@@ -16,7 +16,16 @@ class DetailInline(admin.TabularInline):
 
 
 class SessionInline(admin.StackedInline):
+    readonly_fields = ('session','date','description')
     model = Session
+    extra = 0
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+
+
+class CartInline(admin.TabularInline):
+    model = Cart
     extra = 0
 
 
@@ -28,7 +37,7 @@ class AccountAdmin(admin.ModelAdmin):
             'password',
         ], }),)
 
-    inlines = [SessionInline]
+    inlines = [CartInline, SessionInline]
 
     list_display = ('name', 'email')
 
