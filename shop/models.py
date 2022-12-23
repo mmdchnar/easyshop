@@ -105,10 +105,20 @@ class Image(Model):
         return self.product.name
 
 
+class Cart(Model):
+    user = ForeignKey(Account, CASCADE)
+    product = ForeignKey(Product, CASCADE)
+    count = SmallIntegerField(default=1)
+
+    def __str__(self):
+        return self.user.name
+
+
 class Session(Model):
     user = ForeignKey(Account, CASCADE)
     session = CharField(max_length=250, unique=True)
     description = CharField(max_length=100)
+    date = DateTimeField()
 
     def __str__(self):
         return self.user.name
