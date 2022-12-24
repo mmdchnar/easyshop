@@ -29,9 +29,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="login">
-                    <a href="#" class="mybtn"><i class="fa fa-user-plus"></i>ثبت نام</a>
-                    <a href="#" class="mybtn"><i class="fa fa-user-o"></i>ورود</a>
-                    <a href="#" class="mybtn"><i class="fa fa-cart-arrow-down"></i>سبد</a>
+                    <!-- <a href="/register" class="mybtn"><i class="fa fa-user-plus"></i>ثبت نام</a> -->
+                    {% if account %}<a href="#" class="mybtn"><i class="fa"></i>{{ account.name }}</a>
+                    {% else %}<a href="/login" class="mybtn"><i class="fa fa-user-o"></i>ورود</a>{% endif %}
+                    <a href="/cart" class="mybtn"><i class="fa fa-cart-arrow-down"></i>سبد خرید</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -118,9 +119,9 @@
                             <div class="col-md-5">
                                 <div class="single-content-left">
                                     <ul>
-                                        {% if product.product.no %}<span
-                                                style="color: green;">وضعیت : {% if product.product.no < 6 %}فقط
-                                            {{ product.product.no }} عدد{% endif %} موجود در انبار</span><br><br>
+                                        {% if product.product.count %}<span
+                                                style="color: green;">وضعیت : {% if product.product.count < 6 %}فقط
+                                            {{ product.product.count }} عدد{% endif %} موجود در انبار</span><br><br>
                                         {% else %}
                                             <span style="color: red;">وضعیت : ناموجود در انبار</span><br><br>
                                         {% endif %}
@@ -146,12 +147,14 @@
                                 </del>
                             {% endif %}
                         </h4>
-                        <h3>{{ product.product.price|sub:product.product.off|floatformat:"-3g" }} تومان</h3>
-                        <div {% if product.product.no == 0 %}style="background-color: red;"{% endif %}
-                             class="btn-single">
-                            <a href="#"><i class="fa fa-cart-plus"></i>{% if product.product.no == 0 %}ناموجود{% else %}
-                                خرید آنلاین{% endif %}</a>
-                        </div>
+                        <h3>{{ product.product.price|sub:product.product.off|floatformat:"-3g" }} تومان</h3>{% if product.product.count %}
+                        <div class="btn-single">
+                            <a href="/cart/?add={{ product.product.name }}"><i class="fa fa-cart-plus"></i>خرید آنلاین</a>
+                        </div>{% else %}
+                        <div class="btn-single" style="background-color: red;cursor: not-allowed;">
+                            <a><i class="fa fa-cart-plus"></i>ناموجود</a>
+                        </div>{% endif %}
+                        
                     </div>
                     <div class="col-md-5">
                         <div class="single-img">{% spaceless %}
