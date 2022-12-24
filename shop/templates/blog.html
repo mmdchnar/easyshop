@@ -56,7 +56,7 @@
                      <span>دسته بندی</span>
                      <ul>
                         {% for category in categories %}
-                        <li><a href="/{{ category.link }}">{{ category.persian_name }}</a></li>
+                        <li><a href="/{{ category.name }}">{{ category.persian_name }}</a></li>
                         {% endfor %}
                      </ul>
                   </li>
@@ -64,7 +64,7 @@
                      <span>برند ها</span>
                      <ul>
                         {% for brand in brands %}
-                        <li><a href="/{{ brand.link }}">{{ brand.persian_name }}</a></li>
+                        <li><a href="/{{ brand.name }}">{{ brand.persian_name }}</a></li>
                         {% endfor %}
                      </ul>
                   </li>

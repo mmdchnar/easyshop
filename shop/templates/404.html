@@ -32,7 +32,7 @@
                   <!-- <a href="/register" class="mybtn"><i class="fa fa-user-plus"></i>ثبت نام</a> -->
                   {% if account %}<a href="#" class="mybtn"><i class="fa"></i>{{ account.name }}</a>
                   {% else %}<a href="/login" class="mybtn"><i class="fa fa-user-o"></i>ورود</a>{% endif %}
-                  <a href="#" class="mybtn"><i class="fa fa-cart-arrow-down"></i>سبد خرید</a>
+                  <a href="/cart" class="mybtn"><i class="fa fa-cart-arrow-down"></i>سبد خرید</a>
                </div>
             </div>
             <div class="col-md-6">
@@ -56,7 +56,7 @@
                      <span>دسته بندی</span>
                      <ul>
                         {% for category in categories %}
-                        <li><a href="/{{ category.link }}">{{ category.persian_name }}</a></li>
+                        <li><a href="/{{ category.name }}">{{ category.persian_name }}</a></li>
                         {% endfor %}
                      </ul>
                   </li>
@@ -64,7 +64,7 @@
                      <span>برند ها</span>
                      <ul>
                         {% for brand in brands %}
-                        <li><a href="/{{ brand.link }}">{{ brand.persian_name }}</a></li>
+                        <li><a href="/{{ brand.name }}">{{ brand.persian_name }}</a></li>
                         {% endfor %}
                      </ul>
                   </li>
